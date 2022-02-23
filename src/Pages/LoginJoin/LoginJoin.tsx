@@ -1,6 +1,21 @@
+import { useState, useEffect } from 'react';
 import logo from '../../Styles/images/logo.png';
 
 export default function LoginJoin() {
+  const [clicked, setclicked] = useState(false);
+
+  const handleSignUpButton = () => {
+    setclicked(!clicked);
+  }
+
+  const handleSubmitSignUp = () => {
+    console.log('회원가입 완료')
+  }
+
+  const handleLoginButton=()=>{
+    console.log('로그인 완료')
+  }
+
   return (
     <div className='container loginWrap'>
       <div className='logoWrap'>
@@ -25,22 +40,29 @@ export default function LoginJoin() {
           />
         </div>
 
-        <div className='btnWrap'>
-          <button className='deepGreen-btn size-btn'>로그인</button>
-          <div className='dashline'></div>
-          <button className='lightGreen-btn size-btn'>회원가입</button>
-        </div>
-
-        {/* <div>
-          <div>
+        {clicked ?
+          <div className='inputWrap'>
             <input
-              type='text'
+              type='password'
               name='password'
               placeholder='비밀번호 확인'
+              className='inputBox'
             />
-          </div>
-        </div> */}
+            <p className='passwordInfo'>비밀번호는 8개 이상의 영문자/숫자/특수문자를 사용합니다.</p>
+          </div> : null
+        }
 
+        <div className='btnWrap'>
+          {clicked ?
+            <button type='button' className='deepGreen-btn size-btn' onClick={handleSubmitSignUp}>회원가입</button>
+            : <button type='button' className='deepGreen-btn size-btn' onClick={handleLoginButton}>로그인</button>
+          }
+          <div className='dashline'></div>
+          {clicked ?
+            <button type='button' className='lightGreen-btn size-btn' onClick={handleSignUpButton}>로그인 화면</button>
+            : <button type='button' className='lightGreen-btn size-btn' onClick={handleSignUpButton}>회원가입</button>
+          }
+        </div>
       </form>
 
     </div>

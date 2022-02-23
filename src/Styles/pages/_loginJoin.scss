@@ -21,9 +21,17 @@
       &::placeholder {
         color: $white-color;
       }
+      &:-webkit-autofill {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: $deepGray-color ;
+      }
+      &:focus {
+        outline: none;
+      }
     }
-    input[type="password"]{
-      -webkit-text-security: square;
+    .passwordInfo{
+      color: $lightGray-color;
+      font-size: 13px;
     }
   }
   .btnWrap {
