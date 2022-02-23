@@ -1,12 +1,13 @@
+@import "~bootstrap/scss/bootstrap";
+
 @import 'abstracts/mixin';
 @import 'abstracts/variables';
 
 @import 'base/base';
-@import 'base/typography';
 
-@import 'components';
+// @import 'components';
 
 @import 'layout/footer';
 @import 'layout/header';
 
-@import 'pages';
+@import 'pages/loginJoin';

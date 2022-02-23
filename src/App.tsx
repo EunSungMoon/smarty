@@ -1,11 +1,32 @@
 import React from 'react';
-import './App.scss';
+import './Styles/main.scss';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Header from './Components/layout/Header';
+import Footer from './Components/layout/Footer';
+import LoginJoin from './Pages/LoginJoin/LoginJoin';
+
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
+      <div className="App">
+        <div className='container-fluid'>
+          <Switch>
+            <Route path='/'>
+              <LoginJoin />
+            </Route>
+          </Switch>
 
-    </div>
+          <Switch >
+            <Route path='/smarty'>
+              <Header />
+              <Footer />
+            </Route>
+          </Switch>
+
+        </div>
+      </div>
+    </BrowserRouter>
   );
 }
 

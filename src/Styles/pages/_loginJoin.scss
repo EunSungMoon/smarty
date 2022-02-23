@@ -1,0 +1,47 @@
+.loginWrap {
+  @include display(center);
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'NanumSquareBold';
+  font-size: 23px;
+
+  .logoWrap {
+    margin-bottom: 47px;
+  }
+
+  .inputWrap {
+    margin-bottom: 16px;
+    .inputBox {
+      width: 325px;
+      height: 60px;
+      background: $lightGray-color;
+      border: none;
+      padding-left: 19.5px;
+      color: $deepGray-color;
+      &::placeholder {
+        color: $white-color;
+      }
+    }
+    input[type="password"]{
+      -webkit-text-security: square;
+    }
+  }
+  .btnWrap {
+    .size-btn {
+      width: 325px;
+      height: 80px;
+      color: $white-color;
+      border: none;
+    }
+    .deepGreen-btn {
+      background: $deepGreen-color;
+    }
+    .lightGreen-btn {
+      background: $lightGreen-color;
+    }
+    .dashline {
+      border-bottom: 2px dashed $lightGray-color;
+      margin: 9.5px 0;
+    }
+  }
+}
