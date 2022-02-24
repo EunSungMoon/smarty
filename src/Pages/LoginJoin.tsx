@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import logo from '../../Styles/images/logo.png';
+import logo from '../Styles/images/logo.png';
 import { useHistory } from 'react-router-dom';
 
 export default function LoginJoin() {

@@ -3,7 +3,8 @@ import './Styles/main.scss';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './Components/layout/Header';
 import Footer from './Components/layout/Footer';
-import LoginJoin from './Pages/LoginJoin/LoginJoin';
+import LoginJoin from './Pages/LoginJoin';
+import Main from './Pages/Main';
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
             </Route>
             <>
               <Header />
+              <Route path='/smarty'>
+                <Main />
+              </Route>
             </>
           </Switch>
           <Footer />

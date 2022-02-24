@@ -1,0 +1,23 @@
+#monthWrap {
+  background: $deepGreen-color;
+  height: 110px;
+  .monthList {
+    @include display(flex-end);
+    .month {
+      background: $white-color;
+      width: 75px;
+      height: 75px;
+      font-size: 55px;
+      font-family: "NanumSquareBold";
+      color: $deepGreen-color;
+      margin-bottom: 0;
+      margin-left: 18px;
+      text-align: center;
+      margin-top: 34px;
+    }
+    .currentMonth{
+      height: 90px;
+      margin-top: 20px;
+    }
+  }
+}
