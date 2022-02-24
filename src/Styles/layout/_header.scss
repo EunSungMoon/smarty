@@ -1,0 +1,22 @@
+#header {
+  height: 80px;
+  border-bottom: 5px solid #000000;
+  .headerWrap {
+    @include display(space-between);
+    height: 75px;
+    padding: 14px 10px;
+    .logoImg {
+      width: 143px;
+    }
+    .logoutBtn {
+      width: 130px;
+      height: 43px;
+      border-radius: 5px;
+      border: none;
+      font-size: 23px;
+      font-family: "NanumSquareBold";
+      color: $white-color;
+      background: $deepGreen-color;
+    }
+  }
+}

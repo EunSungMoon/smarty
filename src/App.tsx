@@ -5,25 +5,20 @@ import Header from './Components/layout/Header';
 import Footer from './Components/layout/Footer';
 import LoginJoin from './Pages/LoginJoin/LoginJoin';
 
-
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <div className='container-fluid'>
           <Switch>
-            <Route path='/'>
+            <Route exact path='/'>
               <LoginJoin />
             </Route>
-          </Switch>
-
-          <Switch >
-            <Route path='/smarty'>
+            <>
               <Header />
-              <Footer />
-            </Route>
+            </>
           </Switch>
-
+          <Footer />
         </div>
       </div>
     </BrowserRouter>

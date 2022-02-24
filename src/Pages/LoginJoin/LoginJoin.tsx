@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import logo from '../../Styles/images/logo.png';
+import { useHistory } from 'react-router-dom';
 
 export default function LoginJoin() {
   const [clicked, setclicked] = useState(false);
-  const [noMatchPW, setNoMatchPW] = useState(false)
+  const [noMatchPW, setNoMatchPW] = useState(false);
+  const history = useHistory();
 
   const handleSignUpButton = () => {
     setclicked(!clicked);
@@ -14,15 +16,17 @@ export default function LoginJoin() {
   }
 
   const handleLoginButton = () => {
-    console.log('로그인 완료')
+    console.log('로그인 완료');
+    history.push('/smarty')
+
   }
 
-  const handlePasswordCheck = (e:any) => {
+  const handlePasswordCheck = (e: any) => {
     // setNoMatchPW(e.target.value!==)
   }
 
   return (
-    <div className='container loginWrap'>
+    <div className='loginWrap'>
       <div className='logoWrap'>
         <img src={logo} alt='logo'></img>
       </div>
