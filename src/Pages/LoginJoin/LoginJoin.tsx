@@ -3,6 +3,7 @@ import logo from '../../Styles/images/logo.png';
 
 export default function LoginJoin() {
   const [clicked, setclicked] = useState(false);
+  const [noMatchPW, setNoMatchPW] = useState(false)
 
   const handleSignUpButton = () => {
     setclicked(!clicked);
@@ -12,8 +13,12 @@ export default function LoginJoin() {
     console.log('회원가입 완료')
   }
 
-  const handleLoginButton=()=>{
+  const handleLoginButton = () => {
     console.log('로그인 완료')
+  }
+
+  const handlePasswordCheck = (e:any) => {
+    // setNoMatchPW(e.target.value!==)
   }
 
   return (
@@ -25,7 +30,7 @@ export default function LoginJoin() {
         <div className='inputWrap'>
           <input
             type='text'
-            name='id'
+            name='email'
             placeholder='아이디'
             className='inputBox'
           />
@@ -44,7 +49,7 @@ export default function LoginJoin() {
           <div className='inputWrap'>
             <input
               type='password'
-              name='password'
+              name='passwordCheck'
               placeholder='비밀번호 확인'
               className='inputBox'
             />
