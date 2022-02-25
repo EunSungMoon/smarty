@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Header from './Components/layout/Header';
 import Footer from './Components/layout/Footer';
 import LoginJoin from './Pages/LoginJoin';
-import Main from './Pages/Main';
+import Board from './Components/layout/Board';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
             <>
               <Header />
               <Route path='/smarty'>
-                <Main />
+                <Board />
               </Route>
             </>
           </Switch>
