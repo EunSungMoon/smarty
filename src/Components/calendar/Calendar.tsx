@@ -73,8 +73,8 @@ const Calendar = () => {
         <button className='next_icon' onClick={() => changegeMonth(viewDate, 'add')}></button>
       </div>
 
-      <div>
-        <div className="dayofWeek rows">
+      <div className="calendarWrap">
+        <div className="dayofWeek">
           <div className="box"><span className="text">SUN</span></div>
           <div className="box"><span className="text">MON</span></div>
           <div className="box"><span className="text">TUE</span></div>
@@ -83,9 +83,7 @@ const Calendar = () => {
           <div className="box"><span className="text">FRI</span></div>
           <div className="box"><span className="text">SAT</span></div>
         </div>
-        <div>
-          {createCalendar()}
-        </div>
+        {createCalendar()}
       </div>
     </>
   )
