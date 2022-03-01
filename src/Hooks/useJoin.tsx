@@ -6,12 +6,12 @@ import { validateValues } from '../models/validate';
 export interface joinValues {
   initialValues: validateValues;
   onSubmit: any;
-  validate: any;
+  validate:any
 }
 
 export default function useJoin({ initialValues, onSubmit, validate }: joinValues) {
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState<any>({}); //타입 지정 필요
+  const [errors, setErrors] = useState({}); //타입 지정 필요
   const [submitting, setSubmitting] = useState(false);
 
   const history = useHistory();

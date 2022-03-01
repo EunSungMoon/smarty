@@ -24,7 +24,7 @@ const Calendar = () => {
 
     for (let week = startWeek; week <= endWeek; week++) {
       calender.push(
-        <div className="rows" key={week}>
+        <div className="oneweek" key={week}>
           {Array(7).fill(0).map((n, i) => {
             let current = viewDate.startOf('week').week(week).add(n + i, 'day');
             if (viewDate.format('MM') === '12') {
@@ -64,17 +64,16 @@ const Calendar = () => {
     }
   }
 
-
   return (
-    <>
+    <section id="calendar">
       <div className="currentMonth">
-        <button className='previous_icon' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
+        <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
         <span className="thisMonth">{viewDate.format("MM")}월</span>
-        <button className='next_icon' onClick={() => changegeMonth(viewDate, 'add')}></button>
+        <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
       </div>
 
       <div className="calendarWrap">
-        <div className="dayofWeek">
+        <div className="dayofWeek oneweek">
           <div className="box"><span className="text">SUN</span></div>
           <div className="box"><span className="text">MON</span></div>
           <div className="box"><span className="text">TUE</span></div>
@@ -85,7 +84,7 @@ const Calendar = () => {
         </div>
         {createCalendar()}
       </div>
-    </>
+    </section>
   )
 }
 

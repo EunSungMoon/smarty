@@ -5,6 +5,7 @@ import Header from './Components/layout/Header';
 import Footer from './Components/layout/Footer';
 import LoginJoin from './Pages/LoginJoin';
 import Board from './Components/layout/Board';
+import Month from "./Components/calendar/Month";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             </Route>
             <>
               <Header />
+              <Month />
               <Route path='/smarty'>
                 <Board />
               </Route>

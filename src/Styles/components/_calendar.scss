@@ -1,0 +1,88 @@
+#calendar {
+  .currentMonth {
+    @include display(center);
+    margin: 20px;
+    .thisMonth {
+      font-weight: 700;
+      color: #292929;
+      line-height: 24px;
+    }
+    .button {
+      width: 24px;
+      height: 24px;
+      margin: 0 8px;
+      border: none;
+    }
+    .previous_icon {
+      background: url("../images/previous_arrow.svg") center no-repeat;
+    }
+    .next_icon {
+      background: url("../images/next_arrow.svg") center no-repeat;
+    }
+  }
+  .calendarWrap {
+    text-align: center;
+    margin: 20px;
+    .oneweek {
+      @include display(space-between);
+      cursor: pointer;
+      width: 100%;
+    }
+    .dayofWeek {
+      height: 18px;
+      border-bottom: 1px solid #e8e8e8;
+    }
+    .box {
+      width: 32px;
+      height: 32px;
+      margin: 6px 6px;
+      font-size: 14px;
+      .text {
+        position: static;
+        color: #292929;
+        width: 32px;
+        height: 32px;
+      }
+      .day {
+        position: relative;
+        @include display(center);
+        width: 32px;
+        height: 32px;
+      }
+      .selected {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: pink;
+        font-weight: 700;
+        color: #fff;
+      }
+      .today {
+        border-radius: 50%;
+        font-weight: 500;
+        background: pink;
+        color: #fff;
+      }
+      .isSelected {
+        position: relative;
+        color: pink;
+        font-size: 10px;
+        font-weight: 400;
+      }
+      .isToday {
+        position: relative;
+        color: #292929;
+        font-size: 10px;
+        font-weight: 400;
+      }
+      .none {
+        display: none;
+      }
+      .holiday,
+      .grayed {
+        color: #484848;
+        pointer-events: none;
+      }
+    }
+  }
+}

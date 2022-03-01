@@ -1,7 +1,7 @@
 export default function TodoList(){
   return(
-    <article>
+    <section>
       todolist
-    </article>
+    </section>
   )
 }

@@ -1,6 +1,7 @@
-import dayjs from 'dayjs';
-
 export default function Month() {
+  const dayjs = require('dayjs');
+
+
   return (
     <section id='monthWrap'>
       <div className="container monthList">
