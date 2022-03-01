@@ -35,15 +35,13 @@ const Calendar = () => {
             let isToday = newDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             return (
-              <>
-                <div className={`box`} key={current.format('D')} >
-                  <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
-                    <span className={`day`}>{current.format('D')}</span>
-                    {isToday ? (<span className="isToday">오늘</span>)
-                      : isSelected ? (<span className="isSelected"></span>) : null}
-                  </div>
-                </div >
-              </>
+              <div className={`box`} key={current.format('D')} >
+                <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
+                  <span className={`day`}>{current.format('D')}</span>
+                  {isToday ? (<span className="isToday">오늘</span>)
+                    : isSelected ? (<span className="isSelected"></span>) : null}
+                </div>
+              </div >
             )
           })
           }
