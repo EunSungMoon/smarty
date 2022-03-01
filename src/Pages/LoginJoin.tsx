@@ -9,32 +9,17 @@ export default function LoginJoin() {
   const { values, errors, handleChange, handleSubmit } = useJoin({
     initialValues: { username: '', password: '', passwordCheck: '' },
     onSubmit: () => {
-      // console.log(JSON.stringify({ "username": values.username, "password": values.password, "nickname": values.nickname }));
+      console.log(JSON.stringify({ "username": values.username, "password": values.password }));
     },
     validate
   })
 
   const [clicked, setclicked] = useState(false);
-  const [noMatchPW, setNoMatchPW] = useState(false);
 
   const history = useHistory();
 
   const handleSignUpButton = () => {
     setclicked(!clicked);
-  }
-
-  const handleSubmitSignUp = () => {
-    console.log('회원가입 완료')
-  }
-
-  const handleLoginButton = () => {
-    console.log('로그인 완료');
-    // history.push('/smarty')
-
-  }
-
-  const handlePasswordCheck = (e: any) => {
-    // setNoMatchPW(e.target.value!==)
   }
 
   return (
@@ -65,7 +50,7 @@ export default function LoginJoin() {
           />
         </div>
 
-        {clicked ?
+        {/* {clicked ? */}
           <div className='inputWrap'>
             <input
               type='password'
@@ -75,11 +60,13 @@ export default function LoginJoin() {
               onChange={handleChange}
             />
             <p className='passwordInfo'>비밀번호는 8개 이상의 영문자/숫자/특수문자를 사용합니다.</p>
-          </div> : null
-        }
+          </div> 
+        {/* //   : null
+        // } */}
 
         <div className='btnWrap'>
-          {clicked ?
+        <button type='submit' className='deepGreen-btn size-btn'>회원가입</button>
+          {/* {clicked ?
             <button type='button' className='deepGreen-btn size-btn'>회원가입</button>
             : <button type='button' className='deepGreen-btn size-btn'>로그인</button>
           }
@@ -87,7 +74,7 @@ export default function LoginJoin() {
           {clicked ?
             <button type='button' className='lightGreen-btn size-btn' onClick={handleSignUpButton}>로그인 화면</button>
             : <button type='button' className='lightGreen-btn size-btn' onClick={handleSignUpButton}>회원가입</button>
-          }
+          } */}
         </div>
       </form>
     </div >

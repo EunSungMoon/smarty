@@ -6,7 +6,7 @@ import { validateValues } from '../models/validate';
 export interface joinValues {
   initialValues: validateValues;
   onSubmit: any;
-  validate:any
+  validate: any
 }
 
 export default function useJoin({ initialValues, onSubmit, validate }: joinValues) {
@@ -19,7 +19,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: joinValue
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target as HTMLInputElement
     setValues({ ...values, [name]: value });
-    console.log((e.target as HTMLInputElement).value)
+    console.log(values)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,11 +31,17 @@ export default function useJoin({ initialValues, onSubmit, validate }: joinValue
 
   const handleAxios = async () => {
     try {
-      const loadAxios = await axios.post('http://15.164.62.156:8000/api/register/', {
-        headers: {
-          'Content-Type': 'application/json'
+      const loadAxios = await axios.post('http://15.164.62.156:8000/api/register/',
+        {
+          username: values.username,
+          password: values.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         }
-      })
+      )
       console.log(loadAxios);
     }
     catch (error) {
@@ -43,15 +49,16 @@ export default function useJoin({ initialValues, onSubmit, validate }: joinValue
     }
   }
   useEffect(() => {
-    handleAxios()
-    console.log('test')
-    // if (submitting) {
-    //   // if (Object.keys(errors).length === 0) {
-    //   //   handleAxios();
-    //   //   onSubmit(values);
-    //   // }
-    //   setSubmitting(false);
-    // }
+
+    if (submitting) {
+      // if (Object.keys(errors).length === 0) {
+      //   handleAxios();
+      //   onSubmit(values);
+      // }
+      handleAxios()
+      console.log('test')
+      setSubmitting(false);
+    }
   }, [errors]);
 
   return {
