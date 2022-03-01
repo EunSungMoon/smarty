@@ -13,30 +13,30 @@ const Calendar = () => {
   dayjs.extend(weekOfYear);
 
   const today = dayjs();
-  const [viewDate, setViewDate] = useState(dayjs());
-  const [selectDate, setSelectDate] = useState(dayjs());
+  const newDate = today.month(2) //현재 날짜, 페이지 이걸로 월별카드에 링크 걸자!
+  console.log(newDate) // Wed Mar 02 2022 00:05:42 GMT+0900
+
+  const [viewDate, setViewDate] = useState(newDate);
+  const [selectDate, setSelectDate] = useState(newDate);
 
   const createCalendar = () => {
     const startWeek = viewDate.startOf('month').week();
     const endWeek = viewDate.endOf('month').week() === 1 ? 53 : viewDate.endOf('month').week();
-    let calender = [];
 
+    let calender = [];
 
     for (let week = startWeek; week <= endWeek; week++) {
       calender.push(
         <div className="oneweek" key={week}>
           {Array(7).fill(0).map((n, i) => {
             let current = viewDate.startOf('week').week(week).add(n + i, 'day');
-            if (viewDate.format('MM') === '12') {
-              current = viewDate.startOf('week').week(week - 52).add(n + i, 'day');
-            }
             // 현재 날짜 (기준)
             let isSelected = selectDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'selected' : '';
-            let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
+            let isToday = newDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             return (
               <>
-                <div className={`box`} key={`${week}_${i}`} >
+                <div className={`box`} key={current.format('D')} >
                   <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
                     <span className={`day`}>{current.format('D')}</span>
                     {isToday ? (<span className="isToday">오늘</span>)
@@ -53,7 +53,7 @@ const Calendar = () => {
     return calender;
   }
 
-  const changegeMonth = (date: any, changeString: string) => {
+  const changegeMonth = (date: number, changeString: string) => {
     switch (changeString) {
       case 'add':
         return setViewDate(viewDate.add(1, 'month'))
@@ -67,9 +67,9 @@ const Calendar = () => {
   return (
     <section id="calendar">
       <div className="currentMonth">
-        <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
+        {/* <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button> */}
         <span className="thisMonth">{viewDate.format("MM")}월</span>
-        <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
+        {/* <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button> */}
       </div>
 
       <div className="calendarWrap">
