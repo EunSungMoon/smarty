@@ -1,25 +1,29 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { validateValues } from '../models/validate';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom'
 
-export interface joinValues {
-  initialValues: validateValues;
-  onSubmit: any;
-  validate: any
+export interface validateValues {
+  username: string;
+  password: string;
+  passwordCheck: string;
 }
 
-export default function useJoin({ initialValues, onSubmit, validate }: joinValues) {
+export interface initValues {
+  initialValues: validateValues;
+  onSubmit: any;
+  validate?: any
+}
+
+export default function useSubmit({ initialValues, onSubmit, validate }: initValues) {
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState({}); //타입 지정 필요
+  const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
 
   const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target as HTMLInputElement
+    const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(values)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -38,25 +42,22 @@ export default function useJoin({ initialValues, onSubmit, validate }: joinValue
         },
         {
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           }
-        }
-      )
-      console.log(loadAxios);
+        })
+      console.log(loadAxios)
     }
     catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
-  useEffect(() => {
 
+  useEffect(() => {
     if (submitting) {
       // if (Object.keys(errors).length === 0) {
-      //   handleAxios();
-      //   onSubmit(values);
-      // }
       handleAxios()
-      console.log('test')
+      onSubmit(values);
+      // }
       setSubmitting(false);
     }
   }, [errors]);
@@ -66,6 +67,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: joinValue
     errors,
     submitting,
     handleChange,
-    handleSubmit
+    handleSubmit,
   };
 }
