@@ -54,10 +54,8 @@ export default function useSubmit({ initialValues, onSubmit, validate }: initVal
 
   useEffect(() => {
     if (submitting) {
-      // if (Object.keys(errors).length === 0) {
       handleAxios()
       onSubmit(values);
-      // }
       setSubmitting(false);
     }
   }, [errors]);
