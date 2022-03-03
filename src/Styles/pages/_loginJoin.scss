@@ -29,6 +29,11 @@
         outline: none;
       }
     }
+    .errorMsg{
+      margin-bottom: 0;
+      font-size: 13px;
+      color: $red-color;
+    }
     .passwordInfo{
       color: $lightGray-color;
       font-size: 13px;

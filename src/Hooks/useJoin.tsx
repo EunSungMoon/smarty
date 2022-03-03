@@ -14,7 +14,7 @@ export interface initValues {
   validate?: any
 }
 
-export default function useSubmit({ initialValues, onSubmit, validate }: initValues) {
+export default function useJoin({ initialValues, onSubmit, validate }: initValues) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
@@ -31,9 +31,12 @@ export default function useSubmit({ initialValues, onSubmit, validate }: initVal
     e.preventDefault();
     await new Promise(r => setTimeout(r, 1000));
     setErrors(validate(values));
+
+    (e.target as Element).id === 'join' ? handleAxiosJoin() : handleAxiosLogin()
   };
 
-  const handleAxios = async () => {
+  //회원가입
+  const handleAxiosJoin = async () => {
     try {
       const loadAxios = await axios.post('http://15.164.62.156:8000/api/register/',
         {
@@ -46,6 +49,34 @@ export default function useSubmit({ initialValues, onSubmit, validate }: initVal
           }
         })
       console.log(loadAxios)
+      if (loadAxios.status === 201) {
+        alert('회원가입 성공')
+        window.location.replace('/')
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  //로그인
+  const handleAxiosLogin = async () => {
+    try {
+      const loadAxios = await axios.post('http://15.164.62.156:8000/api/login/',
+        {
+          username: values.username,
+          password: values.password,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+      if (loadAxios.status === 200) {
+        alert('로그인 성공')
+        localStorage.setItem('token', loadAxios.data.token)
+        history.push('/smarty')
+      }
     }
     catch (error) {
       console.log(error)
@@ -54,7 +85,6 @@ export default function useSubmit({ initialValues, onSubmit, validate }: initVal
 
   useEffect(() => {
     if (submitting) {
-      handleAxios()
       onSubmit(values);
       setSubmitting(false);
     }
