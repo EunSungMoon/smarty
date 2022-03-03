@@ -48,7 +48,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
             'Content-Type': 'application/json',
           }
         })
-      console.log(loadAxios)
       if (loadAxios.status === 201) {
         alert('회원가입 성공')
         window.location.replace('/')
@@ -56,6 +55,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
     }
     catch (error) {
       console.log(error)
+      // alert('회원가입에 실패했습니다')
     }
   }
 
