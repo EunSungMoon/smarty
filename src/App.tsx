@@ -17,11 +17,16 @@ function App() {
               <LoginJoin />
             </Route>
             <>
-              <Header />
-              <Month />
-              <Route path='/smarty'>
-                <Board />
-              </Route>
+              {localStorage.token ?
+                <>
+                  <Header />
+                  <Month />
+                  <Route path='/smarty'>
+                    <Board />
+                  </Route>
+                </>
+                : <p>잘못된 접근입니다. 다시 돌아가주세요</p>
+              }
             </>
           </Switch>
           <Footer />

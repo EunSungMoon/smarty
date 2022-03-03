@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from 'react-router-dom';
 
 export interface validateValues {
   username: string;
@@ -73,7 +73,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
           }
         })
       if (loadAxios.status === 200) {
-        alert('로그인 성공')
         localStorage.setItem('token', loadAxios.data.token)
         history.push('/smarty')
       }

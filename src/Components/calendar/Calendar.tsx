@@ -14,10 +14,11 @@ const Calendar = () => {
 
   const today = dayjs();
   const newDate = today.month(2) //현재 날짜, 페이지 이걸로 월별카드에 링크 걸자!
-  console.log(newDate) // Wed Mar 02 2022 00:05:42 GMT+0900
+  // console.log(newDate) // Wed Mar 02 2022 00:05:42 GMT+0900
 
   const [viewDate, setViewDate] = useState(newDate);
   const [selectDate, setSelectDate] = useState(newDate);
+  console.log(viewDate)
 
   const createCalendar = () => {
     const startWeek = viewDate.startOf('month').week();
@@ -65,9 +66,9 @@ const Calendar = () => {
   return (
     <section id="calendar">
       <div className="currentMonth">
-        {/* <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button> */}
+        <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
         <span className="thisMonth">{viewDate.format("MM")}월</span>
-        {/* <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button> */}
+        <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
       </div>
 
       <div className="calendarWrap">
