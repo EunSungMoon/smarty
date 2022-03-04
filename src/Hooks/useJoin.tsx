@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from 'react-router-dom';
 
 export interface validateValues {
@@ -18,6 +18,9 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const history = useHistory();
 
@@ -38,6 +41,8 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   //회원가입
   const handleAxiosJoin = async () => {
     try {
+      setLoading(true);
+      setError(null);
       const loadAxios = await axios.post('http://15.164.62.156:8000/api/register/',
         {
           username: values.username,
@@ -53,9 +58,10 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
         window.location.replace('/')
       }
     }
-    catch (error) {
+    catch (error: any) {
       console.log(error)
-      // alert('회원가입에 실패했습니다')
+      setError(error)
+      alert('회원가입에 실패했습니다')
     }
   }
 
@@ -74,7 +80,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
         })
       if (loadAxios.status === 200) {
         localStorage.setItem('token', loadAxios.data.token)
-        history.push('/smarty')
+        history.push('/todolist/')
       }
     }
     catch (error) {
@@ -87,7 +93,8 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
       onSubmit(values);
       setSubmitting(false);
     }
-  }, [errors]);
+    return () => setLoading(false)
+  }, []);
 
   return {
     values,

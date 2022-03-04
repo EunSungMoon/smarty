@@ -1,6 +1,15 @@
-import { useState } from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const Calendar = () => {
+  const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+  let token = `Token ${localStorage.getItem('token')}`
+
+  const [lists, setLists] = useState([] as any)
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   //day
   const dayjs = require('dayjs');
   const weekday = require('dayjs/plugin/weekday');
@@ -13,12 +22,15 @@ const Calendar = () => {
   dayjs.extend(weekOfYear);
 
   const today = dayjs();
-  const newDate = today.month(2) //현재 날짜, 페이지 이걸로 월별카드에 링크 걸자!
-  // console.log(newDate) // Wed Mar 02 2022 00:05:42 GMT+0900
+  const currentMonth = today.month() + 1
+  console.log(typeof currentMonth)
+  const test: string = currentMonth.toString()
 
-  const [viewDate, setViewDate] = useState(newDate);
-  const [selectDate, setSelectDate] = useState(newDate);
-  console.log(viewDate)
+  console.log(test)
+const  id = useParams<{ id: string }>();
+
+  const [viewDate, setViewDate] = useState(today);
+  const [selectDate, setSelectDate] = useState(today);
 
   const createCalendar = () => {
     const startWeek = viewDate.startOf('month').week();
@@ -33,7 +45,7 @@ const Calendar = () => {
             let current = viewDate.startOf('week').week(week).add(n + i, 'day');
             // 현재 날짜 (기준)
             let isSelected = selectDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'selected' : '';
-            let isToday = newDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
+            let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             return (
               <div className={`box`} key={current.format('D')} >
@@ -63,6 +75,36 @@ const Calendar = () => {
     }
   }
 
+  const loadCalendarAxios = async () => {
+    try {
+      setError(null);
+      setLists(null);
+      setLoading(true);
+      const loadData = await axios.get(`http://15.164.62.156:8000/api/todolist/2022/${id}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+      setLists(loadData.data)
+      console.log(loadData)
+    } catch (error: any) {
+      setError(error)
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
+
+  useEffect(() => {
+    loadCalendarAxios()
+    return () => setLoading(false);
+  }, []);
+
+  if (loading) return <div>로딩중...</div>
+  if (error) return <div>에러가 발생했습니다.</div>
+  if (!lists) return null;
+
   return (
     <section id="calendar">
       <div className="currentMonth">
@@ -73,13 +115,11 @@ const Calendar = () => {
 
       <div className="calendarWrap">
         <div className="dayofWeek oneweek">
-          <div className="box"><span className="text">SUN</span></div>
-          <div className="box"><span className="text">MON</span></div>
-          <div className="box"><span className="text">TUE</span></div>
-          <div className="box"><span className="text">WED</span></div>
-          <div className="box"><span className="text">THU</span></div>
-          <div className="box"><span className="text">FRI</span></div>
-          <div className="box"><span className="text">SAT</span></div>
+          {days.map(day => (
+            <div className="box" key={day}>
+              <span className="text">{day}</span>
+            </div>
+          ))}
         </div>
         {createCalendar()}
       </div>

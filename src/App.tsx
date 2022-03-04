@@ -17,16 +17,16 @@ function App() {
               <LoginJoin />
             </Route>
             <>
-              {localStorage.token ?
+              {/* {localStorage.token===false ? */}
                 <>
                   <Header />
                   <Month />
-                  <Route path='/smarty'>
+                  <Route path='/todolist/:id/'>
                     <Board />
                   </Route>
                 </>
-                : <p>잘못된 접근입니다. 다시 돌아가주세요</p>
-              }
+                {/* : <p>잘못된 접근입니다. 다시 돌아가주세요</p>
+              } */}
             </>
           </Switch>
           <Footer />
