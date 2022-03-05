@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import logo from '../Styles/images/logo.png';
 import validate from '../models/validate';
-
 import useJoin from '../Hooks/useJoin';
 import axios from 'axios';
 
@@ -10,9 +9,8 @@ export default function LoginJoin() {
   const [clicked, setclicked] = useState(false);
   const [noMatchPassword, setNoMatchPassword] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [checkID, setCheckID] = useState(false);
-  const [test, setTest] = useState(false)
-
+  const [checkID, setCheckID] = useState(false); //중복체크여부
+  const [clickedCheckBtn, setClickedCheckBtn] = useState('initial'); //중복체크버튼 클릭여부
 
   const { values, errors, handleChange, handleSubmit } = useJoin({
     initialValues: { username: '', password: '', passwordCheck: '' },
@@ -29,7 +27,22 @@ export default function LoginJoin() {
     setclicked(!clicked);
   }
 
+  const changeBtnName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== values.username) {
+      setCheckID(false)
+    }
+  }
+
+  const handleUniqueCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value === '') {
+      setClickedCheckBtn('initial')
+    } else if (e.target.value === values.username) {
+      setClickedCheckBtn('true')
+    }
+  }
+
   const handleCheckID = async () => {
+    setClickedCheckBtn('true')
     try {
       const loadAxios = await axios.post('http://15.164.62.156:8000/api/uniquecheck/',
         {
@@ -40,22 +53,15 @@ export default function LoginJoin() {
             'Content-Type': 'application/json',
           }
         })
-        console.log(loadAxios)
+      console.log(loadAxios)
       if (loadAxios.status === 200) {
-        setCheckID(true)
-        setTest(true)
-      } else if (loadAxios.status === 400) {
-        setTest(false)
+        setCheckID(true);
+      } else if (loadAxios.status === 202) {
+        setCheckID(false);
       }
     } catch (error) {
       setCheckID(false)
       console.log(error)
-    }
-  }
-
-  const changeBtnName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== values.username) {
-      setCheckID(false)
     }
   }
 
@@ -65,7 +71,7 @@ export default function LoginJoin() {
         <img src={logo} alt='logo'></img>
       </div>
       <form id={clicked ? 'join' : 'login'} onSubmit={handleSubmit}>
-        <div className='inputWrap' onChange={changeBtnName}>
+        <div className='inputWrap' onChange={handleUniqueCheck} >
           <input
             type='text'
             name='username'
@@ -76,7 +82,7 @@ export default function LoginJoin() {
           />
 
           {clicked ?
-            <>
+            <div onChange={changeBtnName}>
               <button
                 type='button'
                 onClick={handleCheckID}
@@ -85,10 +91,12 @@ export default function LoginJoin() {
                 {checkID ? '확인완료' : '중복확인'}
               </button>
               {
-                values.username === '' ?
-                  null : (!checkID ? null : test ? <p>사용가능</p> : <p>사용불가</p>)
+                clickedCheckBtn === 'initial' ? null :
+                  (clickedCheckBtn === 'true' && checkID ?
+                    <p>사용가능</p> : <p>사용불가능</p>)
               }
-            </>
+
+            </div>
             : null
           }
           {errors.username && <p className='errorMsg'>{errors.username}</p>}
@@ -123,6 +131,9 @@ export default function LoginJoin() {
         }
 
         <div className='btnWrap'>
+          {/* {clicked  ?
+            null : <div>zzz</div>
+          } */}
           <button
             type='submit'
             className={`deepGreen-btn size-btn ${!clicked || checkID ? '' : 'disaled'}`}

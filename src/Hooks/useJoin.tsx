@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useHistory } from 'react-router-dom';
 
 export interface validateValues {
   username: string;
@@ -20,9 +19,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   const [submitting, setSubmitting] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const history = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,7 +38,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   const handleAxiosJoin = async () => {
     try {
       setLoading(true);
-      setError(null);
       const loadAxios = await axios.post('http://15.164.62.156:8000/api/register/',
         {
           username: values.username,
@@ -60,7 +55,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
     }
     catch (error: any) {
       console.log(error)
-      setError(error)
       alert('회원가입에 실패했습니다')
     }
   }
@@ -68,6 +62,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   //로그인
   const handleAxiosLogin = async () => {
     try {
+      setLoading(true);
       const loadAxios = await axios.post('http://15.164.62.156:8000/api/login/',
         {
           username: values.username,
@@ -78,12 +73,13 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
             'Content-Type': 'application/json',
           }
         })
+      console.log(loadAxios)
       if (loadAxios.status === 200) {
         localStorage.setItem('token', loadAxios.data.token)
-        history.push('/todolist/')
+        document.location.href = '/todolist/'
       }
     }
-    catch (error) {
+    catch (error: any) {
       console.log(error)
     }
   }

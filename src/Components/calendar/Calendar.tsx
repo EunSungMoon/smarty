@@ -1,15 +1,9 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Calendar = () => {
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  let token = `Token ${localStorage.getItem('token')}`
-
-  const [lists, setLists] = useState([] as any)
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
+  
   //day
   const dayjs = require('dayjs');
   const weekday = require('dayjs/plugin/weekday');
@@ -21,13 +15,13 @@ const Calendar = () => {
   dayjs.extend(isoWeek);
   dayjs.extend(weekOfYear);
 
+
   const today = dayjs();
   const currentMonth = today.month() + 1
   console.log(typeof currentMonth)
   const test: string = currentMonth.toString()
-
   console.log(test)
-const  id = useParams<{ id: string }>();
+  
 
   const [viewDate, setViewDate] = useState(today);
   const [selectDate, setSelectDate] = useState(today);
@@ -74,36 +68,6 @@ const  id = useParams<{ id: string }>();
         return date;
     }
   }
-
-  const loadCalendarAxios = async () => {
-    try {
-      setError(null);
-      setLists(null);
-      setLoading(true);
-      const loadData = await axios.get(`http://15.164.62.156:8000/api/todolist/2022/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        }
-      })
-      setLists(loadData.data)
-      console.log(loadData)
-    } catch (error: any) {
-      setError(error)
-      console.log(error)
-    }
-    setLoading(false)
-  }
-
-
-  useEffect(() => {
-    loadCalendarAxios()
-    return () => setLoading(false);
-  }, []);
-
-  if (loading) return <div>로딩중...</div>
-  if (error) return <div>에러가 발생했습니다.</div>
-  if (!lists) return null;
 
   return (
     <section id="calendar">

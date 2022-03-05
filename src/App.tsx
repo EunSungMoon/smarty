@@ -17,11 +17,11 @@ function App() {
               <LoginJoin />
             </Route>
             <>
-              {/* {localStorage.token===false ? */}
+              {/* {localStorage.token ? */}
                 <>
                   <Header />
                   <Month />
-                  <Route path='/todolist/:id/'>
+                  <Route path='/todolist/'>
                     <Board />
                   </Route>
                 </>
