@@ -20,6 +20,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
   const [loading, setLoading] = useState(false);
   const [errorDisappear, setErrorDisappear] = useState(false); //에러메세지 사라지게
   const [checkID, setCheckID] = useState(false); //중복체크여부
+  const [loginFail, setLoginFail] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleUniqueCheck(e)
@@ -49,7 +50,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
       setCheckID(false)
     }
   }
-
 
   //회원가입
   const handleAxiosJoin = async () => {
@@ -92,15 +92,18 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
         })
       console.log(loadAxios)
       if (loadAxios.status === 200) {
+        setLoginFail(false)
         localStorage.setItem('token', loadAxios.data.token)
         document.location.href = '/todolist/'
       }
     }
     catch (error: any) {
       console.log(error)
+      setLoginFail(true)
     }
   }
 
+  //이메일 중복체크
   const handleCheckID = async () => {
     setErrorDisappear(true)
     try {
@@ -113,7 +116,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
             'Content-Type': 'application/json',
           }
         })
-      console.log(loadAxios)
       if (loadAxios.status === 200) {
         setCheckID(true);
       } else if (loadAxios.status === 202) {
@@ -139,6 +141,7 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
     submitting,
     checkID,
     errorDisappear,
+    loginFail,
     handleChange,
     handleSubmit,
     handleCheckID,

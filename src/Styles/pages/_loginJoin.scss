@@ -2,7 +2,7 @@
   @include display(center);
   flex-direction: column;
   min-height: 93vh;
-  font-family: 'NanumSquareBold';
+  font-family: "NanumSquareBold";
   font-size: 23px;
 
   .logoWrap {
@@ -23,18 +23,14 @@
       }
       &:-webkit-autofill {
         transition: background-color 5000s ease-in-out 0s;
-        -webkit-text-fill-color: $deepGray-color ;
+        -webkit-text-fill-color: $deepGray-color;
       }
       &:focus {
         outline: none;
       }
     }
-    .errorMsg{
-      margin-bottom: 0;
-      font-size: 13px;
-      color: $red-color;
-    }
-    .passwordInfo{
+
+    .passwordInfo {
       color: $lightGray-color;
       font-size: 13px;
     }
@@ -52,12 +48,24 @@
     .lightGreen-btn {
       background: $lightGreen-color;
     }
-    .disaled{
+    .disaled {
       background: lightgreen;
     }
     .dashline {
       border-bottom: 2px dashed $lightGray-color;
       margin: 9.5px 0;
     }
+  }
+  .errorMsg {
+    margin-bottom: 0;
+    font-size: 13px;
+  }
+  .errorMsg-not {
+    @extend .errorMsg;
+    color: $red-color;
+  }
+  .errorMsg-ok {
+    @extend .errorMsg;
+    color: $lightGreen-color;
   }
 }
