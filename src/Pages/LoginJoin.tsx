@@ -31,7 +31,7 @@ export default function LoginJoin() {
         <img src={logo} alt='logo'></img>
       </div>
       <form id={clicked ? 'join' : 'login'} onSubmit={handleSubmit}>
-        <div className='inputWrap'>
+        <div className='inputWrap loginInput'>
           <input
             type='text'
             name='username'
@@ -40,24 +40,23 @@ export default function LoginJoin() {
             value={values.username}
             onChange={handleChange}
           />
-
           {clicked ?
-            <div onChange={changeBtnName}>
+            <div className='userCheck' onChange={changeBtnName}>
               <button
                 type='button'
                 onClick={handleCheckID}
-                className={checkID ? '' : 'disaled'}
+                className={`uesrCheckBtn ${checkID && errorDisappear ? 'abledBtn' : 'disaledBtn'}`}
               >
-                {checkID ? '확인완료' : '중복확인'}
+                {checkID && errorDisappear ? '확인완료' : '중복확인'}
               </button>
-              {errorDisappear ?
-                (checkID ?
-                  <p className='errorMsg-ok'>*사용할 수 있는 아이디(ID)입니다.</p>
-                  : <p className='errorMsg-not'>*사용할 수 없는 아이디(ID)입니다.</p>
-                )
-                : null
-              }
             </div>
+            : null
+          }
+          {errorDisappear ?
+            (checkID ?
+              <p className='errorMsg-ok'>*사용할 수 있는 아이디(ID)입니다.</p>
+              : <p className='errorMsg-not'>*사용할 수 없는 아이디(ID)입니다.</p>
+            )
             : null
           }
           {errors.username && <p className='errorMsg-not'>{errors.username}</p>}
@@ -74,21 +73,20 @@ export default function LoginJoin() {
           {errors.password && <p className='errorMsg-not'>{errors.password}</p>}
         </div>
 
-        {
-          clicked ?
-            <div className='inputWrap' onChange={handlePasswordChk}>
-              <input
-                type='password'
-                name='passwordCheck'
-                placeholder='비밀번호 확인'
-                className='inputBox'
-                onChange={handleChange}
-              />
-              {errors.passwordCheck && <p className='errorMsg-not'>{errors.passwordCheck}</p>}
-              {noMatchPassword && <p className='errorMsg-not'>*비밀번호가 일치하지 않습니다.</p>}
-              <p className='passwordInfo'>비밀번호는 8개 이상의 영문자/숫자/특수문자를 사용합니다.</p>
-            </div>
-            : null
+        {clicked ?
+          <div className='inputWrap' onChange={handlePasswordChk}>
+            <input
+              type='password'
+              name='passwordCheck'
+              placeholder='비밀번호 확인'
+              className='inputBox'
+              onChange={handleChange}
+            />
+            {errors.passwordCheck && <p className='errorMsg-not'>{errors.passwordCheck}</p>}
+            {noMatchPassword && <p className='errorMsg-not'>*비밀번호가 일치하지 않습니다.</p>}
+            <p className='passwordInfo'>비밀번호는 8개 이상의 영문자/숫자/특수문자를 사용합니다.</p>
+          </div>
+          : null
         }
 
         <div className='btnWrap'>
@@ -97,10 +95,9 @@ export default function LoginJoin() {
           }
           <button
             type='submit'
-            className={`deepGreen-btn size-btn 
-            ${!clicked ||
-                ((checkID && errorDisappear) && (values.passwordCheck && !noMatchPassword)) ?
-                '' : 'disaled'}`}
+            className={`deepGreen-btn size-btn ${!clicked ||
+              ((checkID && errorDisappear) && (values.passwordCheck && !noMatchPassword)) ?
+              '' : 'disaled'}`}
 
             disabled={!clicked ||
               ((checkID && errorDisappear) && (values.passwordCheck && !noMatchPassword)) ?

@@ -20,6 +20,7 @@
       color: $deepGray-color;
       &::placeholder {
         color: $white-color;
+        font-size: 23px;
       }
       &:-webkit-autofill {
         transition: background-color 5000s ease-in-out 0s;
@@ -33,6 +34,30 @@
     .passwordInfo {
       color: $lightGray-color;
       font-size: 13px;
+    }
+  }
+  .loginInput{
+    position: relative;
+    .inputBox{
+      font-size: 16px;
+    }
+    .userCheck{
+      position: absolute;
+      top: 10px;
+      right: 13px;
+      .uesrCheckBtn{
+        border: none;
+        width: 76px;
+        height: 26px;
+        font-size: 13px;
+        color: $white-color;
+      }
+      .abledBtn{
+        background: #439643;
+      }
+      .disaledBtn{
+        background: $gray-color;
+      }
     }
   }
   .btnWrap {
@@ -49,7 +74,7 @@
       background: $lightGreen-color;
     }
     .disaled {
-      background: lightgreen;
+      background: $gray-color;
     }
     .dashline {
       border-bottom: 2px dashed $lightGray-color;
