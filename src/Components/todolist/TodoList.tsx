@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 export default function TodoList() {
   const [lists, setLists] = useState([] as any)
@@ -8,16 +7,11 @@ export default function TodoList() {
   const [error, setError] = useState(null);
   let token = `Token ${localStorage.getItem('token')}`
 
-
-
-
   const dayjs = require('dayjs');
   const today = dayjs();
   const month=today.month()+1
   const currentMonth=month.toString()
-  
 
-  // currentMonth = useParams<{ currentMonth: string }>();
 
   const loadCalendarAxios = async () => {
     try {

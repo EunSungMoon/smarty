@@ -8,11 +8,14 @@ export default function Header() {
   }
 
   return (
-    <header id='header'>
-      <div className='container headerWrap'>
-        <img className='logoImg' src={logo} alt="smarty logo"></img>
-        <button type='button' className='logoutBtn' onClick={handleLogout}>로그아웃</button>
-      </div>
-    </header>
+    <>
+      <header id='header'>
+        <div className='container headerWrap'>
+          <img className='logoImg' src={logo} alt="smarty logo"></img>
+          <button type='button' className='logoutBtn' onClick={handleLogout}>로그아웃</button>
+        </div>
+      </header>
+      <section id='monthWrap'></section>
+    </>
   )
 }
