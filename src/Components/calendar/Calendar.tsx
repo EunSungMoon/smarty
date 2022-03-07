@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
-const Calendar = () => {
+export default function Calendar() {
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-  
+
   //day
   const dayjs = require('dayjs');
   const weekday = require('dayjs/plugin/weekday');
@@ -21,7 +20,7 @@ const Calendar = () => {
   console.log(typeof currentMonth)
   const test: string = currentMonth.toString()
   console.log(test)
-  
+
 
   const [viewDate, setViewDate] = useState(today);
   const [selectDate, setSelectDate] = useState(today);
@@ -90,5 +89,3 @@ const Calendar = () => {
     </section>
   )
 }
-
-export default Calendar;
