@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import useDay from "../../Hooks/useDay";
+import TodoList from "../todolist/TodoList";
 
 export default function Calendar() {
+  const { dayjs, viewDate, today, lists, loading, error, loadCalendarAxios, setViewDate } = useDay();
+
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
   //day
-  const dayjs = require('dayjs');
   const weekday = require('dayjs/plugin/weekday');
   const isoWeek = require('dayjs/plugin/isoWeek');
   const weekOfYear = require('dayjs/plugin/weekOfYear');
@@ -14,15 +17,6 @@ export default function Calendar() {
   dayjs.extend(isoWeek);
   dayjs.extend(weekOfYear);
 
-
-  const today = dayjs();
-  const currentMonth = today.month() + 1
-  console.log(typeof currentMonth)
-  const test: string = currentMonth.toString()
-  console.log(test)
-
-
-  const [viewDate, setViewDate] = useState(today);
   const [selectDate, setSelectDate] = useState(today);
 
   const createCalendar = () => {
@@ -57,35 +51,54 @@ export default function Calendar() {
     return calender;
   }
 
+  const month = viewDate.month() + 1
+  const currentMonth = month.toString()
+
+
   const changegeMonth = (date: number, changeString: string) => {
-    switch (changeString) {
-      case 'add':
-        return setViewDate(viewDate.add(1, 'month'))
-      case 'subtract':
-        return setViewDate(viewDate.subtract(1, 'month'))
-      default:
-        return date;
+    if (changeString === 'add') {
+      setViewDate(viewDate.add(1, 'month'))
+      loadCalendarAxios(month)
+      console.log(month)
+    }
+    else if (changeString === 'subtract') {
+      setViewDate(viewDate.subtract(1, 'month'))
+      loadCalendarAxios(month)
+      console.log(month)
     }
   }
 
-  return (
-    <section id="calendar">
-      <div className="currentMonth">
-        <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
-        <span className="thisMonth">{viewDate.format("MM")}월</span>
-        <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
-      </div>
+  // useEffect(() => {
+  //   loadCalendarAxios(currentMonth)
+  //   console.log(currentMonth)
+  //   return lists
+  // }, []);
 
-      <div className="calendarWrap">
-        <div className="dayofWeek oneweek">
-          {days.map(day => (
-            <div className="box" key={day}>
-              <span className="text">{day}</span>
-            </div>
-          ))}
+  if (loading) return <div>로딩중...</div>
+  if (error) return <div>에러가 발생했습니다.</div>
+  if (!lists) return <div>리스트 등록해주삼</div>;
+
+  return (
+    <>
+      <section id="calendar">
+        <div className="currentMonth">
+          <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
+          <span className="thisMonth">{viewDate.format("MM")}월</span>
+          <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
         </div>
-        {createCalendar()}
-      </div>
-    </section>
+
+        <div className="calendarWrap">
+          <div className="dayofWeek oneweek">
+            {days.map(day => (
+              <div className="box" key={day}>
+                <span className="text">{day}</span>
+              </div>
+            ))}
+          </div>
+          {createCalendar()}
+        </div>
+      </section >
+      <TodoList lists={lists} />
+    </>
   )
 }

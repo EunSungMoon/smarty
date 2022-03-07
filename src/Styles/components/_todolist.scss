@@ -1,0 +1,32 @@
+#todolist {
+  width: 900px;
+  .todolistWrap {
+    @include display(flex-start);
+    margin-bottom: 21px;
+    .importance {
+      width: 20px;
+      height: 20px;
+      border: 2px solid;
+      margin-right: 10px;
+
+      &-0{
+        border-color: $yellow-color;
+      }
+      &-1{
+        border-color: $lightGreen-color;
+      }
+      &-2{
+        border-color: $red-color;
+      }
+      &-3{
+        border-color: $gray-color;
+      }
+    }
+    .title{
+      font-family: 'NanumSquareBold';
+      font-size: 21px;
+      line-height: 20px;
+      letter-spacing: 2px;
+    }
+  }
+}
