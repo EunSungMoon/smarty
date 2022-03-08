@@ -1,20 +1,14 @@
 import axios from "axios";
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
-export default function useDay() {
-  const dayjs = require('dayjs');
-  const today = dayjs();
-
+export default function useDay(initialDay: any) {
   const [lists, setLists] = useState([] as any)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [viewDate, setViewDate] = useState(today);
+  const [viewDate, setViewDate] = useState(initialDay);
   let token = `Token ${localStorage.getItem('token')}`
 
-  // const month = viewDate.month() + 1
-  // const currentMonth = month.toString()
-
-  const loadCalendarAxios = async (xMonth: string) => {
+  const loadCalendarAxios = async (xMonth: number) => {
     try {
       setError(null);
       setLists(null);
@@ -26,8 +20,6 @@ export default function useDay() {
         }
       })
       setLists(loadData.data)
-      console.log(loadData)
-      console.log(viewDate)
     } catch (error: any) {
       setError(error)
       console.log(error)
@@ -39,11 +31,7 @@ export default function useDay() {
     lists,
     loading,
     error,
-    dayjs,
     viewDate,
-    today,
-    // month,
-    // currentMonth,
     setViewDate,
     loadCalendarAxios
   }

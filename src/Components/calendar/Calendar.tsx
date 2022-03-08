@@ -3,11 +3,11 @@ import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
 
 export default function Calendar() {
-  const { dayjs, viewDate, today, lists, loading, error, loadCalendarAxios, setViewDate } = useDay();
+  const dayjs = require('dayjs');
+  const today = dayjs();
+  const { viewDate, lists, loading, error, loadCalendarAxios, setViewDate } = useDay(today);
 
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
-
-
 
   //day
   const weekday = require('dayjs/plugin/weekday');
@@ -18,6 +18,9 @@ export default function Calendar() {
   dayjs.extend(weekday);
   dayjs.extend(isoWeek);
   dayjs.extend(weekOfYear);
+  
+  const month = viewDate.add(1, 'month')
+  const currentMonth = month.month()
 
   const [selectDate, setSelectDate] = useState(today);
 
@@ -53,31 +56,19 @@ export default function Calendar() {
     return calender;
   }
 
-
-
-  const month = viewDate.add(1, 'month')
-
-  const currentMonth = month.month()
-
   useEffect(() => {
     loadCalendarAxios(currentMonth)
-    console.log(viewDate)
     return lists
-  }, []);
+  }, [viewDate]);
 
   const changegeMonth = (date: number, changeString: string) => {
-
     if (changeString === 'add') {
       setViewDate(viewDate.add(1, 'month'))
-      console.log(viewDate)
-      loadCalendarAxios(currentMonth)
-      console.log(viewDate)
     }
     else if (changeString === 'subtract') {
       setViewDate(viewDate.subtract(1, 'month'))
-      loadCalendarAxios(currentMonth)
-      console.log(viewDate)
     }
+    return loadCalendarAxios(currentMonth);
   }
 
   if (loading) return <div>로딩중...</div>
