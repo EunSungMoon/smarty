@@ -12,7 +12,7 @@ export default function TodoList(props: any) {
             <div className="todolist container">
               <p className="margin0px title">{list.title}</p>
               <div className="buttonWrap">
-                <button type="button" title='수정하기'><HiOutlinePencilAlt /></button>
+                <button type="button" title='수정하기' className="margin-right5px"><HiOutlinePencilAlt /></button>
                 <button type="button" title='삭제하기'><HiX /></button>
               </div>
             </div>
@@ -24,7 +24,9 @@ export default function TodoList(props: any) {
         <input type='checkbox' id='importance' className="displayNone" />
         <label htmlFor='importance' className='importance importance-3'></label>
         <div className="todolist container flex">
-          <input type='text' />
+          <div className="todolistForm container">
+            <input type='text' />
+          </div>
           <div className="buttonWrap enrollBtn">
             <button type="button" title='등록하기'><HiPlus /></button>
           </div>
