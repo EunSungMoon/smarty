@@ -7,6 +7,8 @@ export default function Calendar() {
 
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
+
+
   //day
   const weekday = require('dayjs/plugin/weekday');
   const isoWeek = require('dayjs/plugin/isoWeek');
@@ -51,37 +53,42 @@ export default function Calendar() {
     return calender;
   }
 
-  const month = viewDate.month() + 1
-  const currentMonth = month.toString()
 
+
+  const month = viewDate.add(1, 'month')
+
+  const currentMonth = month.month()
+
+  useEffect(() => {
+    loadCalendarAxios(currentMonth)
+    console.log(viewDate)
+    return lists
+  }, []);
 
   const changegeMonth = (date: number, changeString: string) => {
+
     if (changeString === 'add') {
       setViewDate(viewDate.add(1, 'month'))
-      loadCalendarAxios(month)
-      console.log(month)
+      console.log(viewDate)
+      loadCalendarAxios(currentMonth)
+      console.log(viewDate)
     }
     else if (changeString === 'subtract') {
       setViewDate(viewDate.subtract(1, 'month'))
-      loadCalendarAxios(month)
-      console.log(month)
+      loadCalendarAxios(currentMonth)
+      console.log(viewDate)
     }
   }
 
-  // useEffect(() => {
-  //   loadCalendarAxios(currentMonth)
-  //   console.log(currentMonth)
-  //   return lists
-  // }, []);
-
   if (loading) return <div>로딩중...</div>
   if (error) return <div>에러가 발생했습니다.</div>
-  if (!lists) return <div>리스트 등록해주삼</div>;
+  if (!lists) return <div>리스트 등록해주삼</div>
 
   return (
     <>
       <section id="calendar">
         <div className="currentMonth">
+          <span>{viewDate.format('YYYY')}년</span>
           <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
           <span className="thisMonth">{viewDate.format("MM")}월</span>
           <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>

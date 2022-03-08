@@ -1,32 +1,51 @@
 #todolist {
-  width: 900px;
-  .todolistWrap {
+  padding: 40px 0;
+  .flex {
     @include display(flex-start);
+  }
+  .todolistWrap {
     margin-bottom: 21px;
-    .importance {
-      width: 20px;
-      height: 20px;
-      border: 2px solid;
-      margin-right: 10px;
-
-      &-0{
-        border-color: $yellow-color;
+    .title {
+      font-family: "NanumSquareBold";
+      font-size: 21px;
+      letter-spacing: 2px;
+    }
+  }
+  .newTodolistWrap {
+    .todolist {
+      padding: 0;
+      input {
+        width: 90%;
       }
-      &-1{
-        border-color: $lightGreen-color;
-      }
-      &-2{
-        border-color: $red-color;
-      }
-      &-3{
-        border-color: $gray-color;
+      .enrollBtn {
+        margin-right: 16px;
       }
     }
-    .title{
-      font-family: 'NanumSquareBold';
-      font-size: 21px;
-      line-height: 20px;
-      letter-spacing: 2px;
+  }
+  .todolist {
+    @include display(space-between);
+    padding: 0;
+    .title {
+      width: 88%;
+    }
+  }
+  .importance {
+    width: 20px;
+    height: 20px;
+    border: 2px solid;
+    margin-right: 20px;
+
+    &-0 {
+      border-color: $yellow-color;
+    }
+    &-1 {
+      border-color: $lightGreen-color;
+    }
+    &-2 {
+      border-color: $red-color;
+    }
+    &-3 {
+      border-color: $gray-color;
     }
   }
 }

@@ -27,6 +27,7 @@ export default function useDay() {
       })
       setLists(loadData.data)
       console.log(loadData)
+      console.log(viewDate)
     } catch (error: any) {
       setError(error)
       console.log(error)
