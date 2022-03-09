@@ -61,14 +61,14 @@
         input {
           width: 95%;
           border: none;
+          margin-bottom: 5px;
         }
-        .repeatWrap{
+        .repeatWrap {
           margin-right: 50px;
         }
         .box {
           height: 20px;
           font-size: 12px;
-          background: $gray-color;
           color: $white-color;
           text-align: center;
           line-height: 20px;
@@ -76,12 +76,17 @@
         }
         .selectTitle {
           width: 50px;
+          background: $gray-color;
         }
         .radioWrap {
           margin-left: 4px;
           .radio {
             width: 32px;
             margin-bottom: 4px;
+            background: $lightGray-color;
+          }
+          .checkedRadio{
+            background: $gray-color;
           }
         }
       }

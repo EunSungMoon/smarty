@@ -1,7 +1,18 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-
+import React, { useState } from "react";
+import InputRadio from "./InputRadio";
 
 export default function TodoList(props: any) {
+  const importances = [
+    { value: '0', text: '낮음' },
+    { value: '1', text: '보통' },
+    { value: '2', text: '높음' }
+  ]
+  const repeats = [
+    { value: '0', text: '안함' },
+    { value: '1', text: '매주' }
+  ]
+
   return (
     <section id='todolist' className="container">
       {
@@ -30,41 +41,14 @@ export default function TodoList(props: any) {
             <div className="flex-start">
               <div className="flex-start repeatWrap">
                 <p className="margin0px selectTitle box">반복</p>
-                <div className="radioWrap">
-                  <label className="box radio">
-                    <input type='radio' name='repeat' value='norepeat' className="displayNone" />
-                    안함
-                  </label>
-                </div>
-                <div className="radioWrap">
-                  <label className="box radio">
-                    <input type='radio' name='repeat' value='everyweek' className="displayNone" />
-                    매주
-                  </label>
-                </div>
+                <InputRadio radios={repeats} />
               </div>
 
               <div className="flex-start">
                 <p className="margin0px selectTitle box">중요도</p>
-                <div className="radioWrap">
-                  <label className="box radio">
-                    <input type='radio' name='importance' value='low' className="displayNone" />
-                    낮음
-                  </label>
-                </div>
-                <div className="radioWrap">
-                  <label className="box radio">
-                    <input type='radio' name='importance' value='normal' className="displayNone" />
-                    보통
-                  </label>
-                </div>
-                <div className="radioWrap">
-                  <label className="box radio">
-                    <input type='radio' name='importance' value='high' className="displayNone" />
-                    높음
-                  </label>
-                </div>
+                <InputRadio radios={importances} />
               </div>
+
             </div>
           </div>
           <div className="buttonWrap">
