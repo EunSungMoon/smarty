@@ -1,5 +1,5 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import InputRadio from "./InputRadio";
 
 export default function TodoList(props: any) {
@@ -13,13 +13,32 @@ export default function TodoList(props: any) {
     { value: '1', text: '매주' }
   ]
 
+  const [checkedList, setCheckedLists] = useState<any>([]);
+
+  const onCheckedElement = (checked: boolean, list: string) => {
+    if (checked) {
+      setCheckedLists([...checkedList, list]);
+      console.log(checkedList)
+    } else {
+      setCheckedLists(checkedList.filter((el: string) => el !== list));
+      console.log(checkedList)
+    }
+  }
+
   return (
     <section id='todolist' className="container">
       {
         props.lists.map((list: any) => (
-          <form className="todolistWrap flex-start" key={list.id}>
-            <input type='checkbox' id='importance' className="displayNone" />
-            <label htmlFor='importance' className={`importance importance-${list.importance}`} ></label>
+          <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`} key={list.id} >
+            <label className={`importance importance-${list.importance}`} >
+              <input
+                type='checkbox'
+                value={list.importance}
+                className="displayNone"
+                onChange={(e) => onCheckedElement(e.target.checked, list)}
+                defaultChecked={checkedList.includes(list) ? true : false}
+              />
+            </label>
             <div className="todolist container">
               <p className="margin0px title">{list.title}</p>
               <div className="buttonWrap">

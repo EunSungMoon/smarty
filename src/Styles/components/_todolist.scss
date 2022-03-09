@@ -49,6 +49,14 @@
       border-color: $gray-color;
     }
   }
+  .checkedbox {
+    background: url("../images/complete.png") no-repeat;
+    background-position-y: center;
+
+    .importance {
+      border-color: $gray-color;
+    }
+  }
 
   .newTodolistWrap {
     display: flex;
@@ -85,7 +93,7 @@
             margin-bottom: 4px;
             background: $lightGray-color;
           }
-          .checkedRadio{
+          .checkedRadio {
             background: $gray-color;
           }
         }
