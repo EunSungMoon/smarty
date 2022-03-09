@@ -16,13 +16,11 @@ export default function TodoList(props: any) {
   const [checkedList, setCheckedLists] = useState<any>([]);
 
   const onCheckedElement = (checked: boolean, list: string) => {
-    if (checked) {
-      setCheckedLists([...checkedList, list]);
+    checked ?
+      setCheckedLists([...checkedList, list]) :
+      setCheckedLists(checkedList.filter((el: string) => el !== list))
       console.log(checkedList)
-    } else {
-      setCheckedLists(checkedList.filter((el: string) => el !== list));
-      console.log(checkedList)
-    }
+      console.log(list)
   }
 
   return (
