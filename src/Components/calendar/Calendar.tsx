@@ -108,7 +108,7 @@ export default function Calendar() {
           <div className="dayofWeek oneweek">
             {days.map(day => (
               <div className={`box borderBottomnone ${day === 'SAT' ? 'borderRightnone' : ''}`} key={day}>
-                <span className=" ">{day}</span>
+                <span>{day}</span>
               </div>
             ))}
           </div>

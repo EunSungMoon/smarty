@@ -26,13 +26,15 @@
   .calendarWrap {
     text-align: center;
     margin: 20px;
+    margin-top: 40px;
     .oneweek {
       @include display(space-between, center);
       cursor: pointer;
       width: 100%;
     }
     .dayofWeek {
-      height: 18px;
+      height: 40px;
+      line-height: 50px;
       border-bottom: 1px solid #e8e8e8;
     }
     .box {
@@ -43,9 +45,9 @@
       box-sizing: initial;
       border-right: 1px solid $lightGray-color;
       border-bottom: 1px solid $lightGray-color;
+      color: $gray-color;
       .text {
         position: static;
-        color: $gray-color;
         width: 32px;
         height: 32px;
       }

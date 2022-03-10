@@ -20,7 +20,6 @@ export default function useDay(initialDay: any) {
         }
       })
       setLists(loadData.data)
-      console.log(loadData.data)
     } catch (error: any) {
       setError(error)
       console.log(error)
@@ -39,7 +38,6 @@ export default function useDay(initialDay: any) {
           'Authorization': token
         }
       })
-      console.log(loadData.data)
       setLists(loadData.data)
     } catch (error: any) {
       setError(error)
