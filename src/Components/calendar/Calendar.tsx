@@ -41,10 +41,13 @@ export default function Calendar() {
             let isSelected = selectDate.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'selected' : '';
             let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
+            let holiday = current.day() === 0 ? 'holiday' : '';
+            let satDay = current.day() === 6 ? 'satDay' : '';
+
             return (
               <div className={`box ${current.day() === 6 ? 'borderRightnone' : ''}`} key={current.format('D')} >
                 <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
-                  <span className={`day`}>{current.format('D')}</span>
+                  <span className={`day ${holiday} ${satDay}`}>{current.format('D')}</span>
                   {isToday ? (<span className="isToday">오늘</span>)
                     : isSelected ? (<span className="isSelected"></span>) : null}
                 </div>
@@ -97,7 +100,7 @@ export default function Calendar() {
           <div className="dayofWeek oneweek">
             {days.map(day => (
               <div className={`box borderBottomnone ${day === 'SAT' ? 'borderRightnone' : ''}`} key={day}>
-                <span className="text">{day}</span>
+                <span className=" ">{day}</span>
               </div>
             ))}
           </div>

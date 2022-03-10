@@ -4,11 +4,11 @@
     @include display(center);
     flex-direction: column;
     margin: 20px;
-    .currentYear{
+    .currentYear {
       @include display(center);
       margin-bottom: 21px;
     }
-    .currentMonth{
+    .currentMonth {
       @include display(center);
     }
     .thisMonth {
@@ -45,7 +45,7 @@
       border-bottom: 1px solid $lightGray-color;
       .text {
         position: static;
-        color: #292929;
+        color: $gray-color;
         width: 32px;
         height: 32px;
       }
@@ -86,16 +86,19 @@
       .none {
         display: none;
       }
-      .holiday,
-      .grayed {
-        color: #484848;
+      .holiday {
+        color: $red-color;
+        pointer-events: none;
+      }
+      .satDay {
+        color: $deepGreen-color;
         pointer-events: none;
       }
     }
-    .borderBottomnone{
+    .borderBottomnone {
       border-bottom: none;
     }
-    .borderRightnone{
+    .borderRightnone {
       border-right: none;
     }
   }
