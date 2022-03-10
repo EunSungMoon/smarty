@@ -1,6 +1,12 @@
 # 똑똑이 (smarty)
 - 프로젝트 진행 기간 2022.02.23
 
+## 기술 스택
+<span><img src="https://img.shields.io/badge/HTML-e34f26?style=flat&logo=html5&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/Typescript-dbab09?style=flat&logo=typescript&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/React-61dafb?style=flat&logo=react&logoColor=white"/></span>
+<span><img src="https://img.shields.io/badge/Sass-cc6699?style=flat&logo=sass&logoColor=white"/></span>
+
 #### 2022.02.23
 - 디렉토리 설계
 - 회원가입, 로그인 퍼블리싱
