@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
+import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
 
 export default function Calendar() {
   const dayjs = require('dayjs');
@@ -18,9 +19,10 @@ export default function Calendar() {
   dayjs.extend(weekday);
   dayjs.extend(isoWeek);
   dayjs.extend(weekOfYear);
-  
-  const month = viewDate.add(1, 'month')
-  const currentMonth = month.month()
+
+  const month = viewDate.add(1, 'month');
+  const currentMonth = month.month();
+  const currentYear = month.year();
 
   const [selectDate, setSelectDate] = useState(today);
 
@@ -32,7 +34,7 @@ export default function Calendar() {
 
     for (let week = startWeek; week <= endWeek; week++) {
       calender.push(
-        <div className="oneweek" key={week}>
+        <div className={`oneweek`} key={week}>
           {Array(7).fill(0).map((n, i) => {
             let current = viewDate.startOf('week').week(week).add(n + i, 'day');
             // 현재 날짜 (기준)
@@ -40,7 +42,7 @@ export default function Calendar() {
             let isToday = today.format('YYYYMMDD') === current.format('YYYYMMDD') ? 'today' : '';
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             return (
-              <div className={`box`} key={current.format('D')} >
+              <div className={`box ${current.day() === 6 ? 'borderRightnone' : ''}`} key={current.format('D')} >
                 <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
                   <span className={`day`}>{current.format('D')}</span>
                   {isToday ? (<span className="isToday">오늘</span>)
@@ -57,18 +59,18 @@ export default function Calendar() {
   }
 
   useEffect(() => {
-    loadCalendarAxios(currentMonth)
+    loadCalendarAxios(currentYear, currentMonth)
     return lists
   }, [viewDate]);
 
-  const changegeMonth = (date: number, changeString: string) => {
+  const handleArrowBtn = (date: number, changeString: string, changeDate: string) => {
     if (changeString === 'add') {
-      setViewDate(viewDate.add(1, 'month'))
+      setViewDate(viewDate.add(1, changeDate))
     }
     else if (changeString === 'subtract') {
-      setViewDate(viewDate.subtract(1, 'month'))
+      setViewDate(viewDate.subtract(1, changeDate))
     }
-    return loadCalendarAxios(currentMonth);
+    return loadCalendarAxios(currentYear, currentMonth);
   }
 
   if (loading) return <div>로딩중...</div>
@@ -78,17 +80,23 @@ export default function Calendar() {
   return (
     <>
       <section id="calendar">
-        <div className="currentMonth">
-          <span>{viewDate.format('YYYY')}년</span>
-          <button className='previous_icon button' onClick={() => changegeMonth(viewDate, 'subtract')}></button>
-          <span className="thisMonth">{viewDate.format("MM")}월</span>
-          <button className='next_icon button' onClick={() => changegeMonth(viewDate, 'add')}></button>
+        <div className="currentDate">
+          <div className="currentYear">
+            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'subtract', 'year')}><GoTriangleLeft /></button>
+            <span className="thisMonth">{viewDate.format('YYYY')}년</span>
+            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'add', 'year')}><GoTriangleRight /></button>
+          </div>
+          <div className="currentMonth">
+            <button className=' arrowbtn' onClick={() => handleArrowBtn(viewDate, 'subtract', 'month')}><GoTriangleLeft /></button>
+            <span className="thisMonth">{viewDate.format("MM")}월</span>
+            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'add', 'month')}><GoTriangleRight /></button>
+          </div>
         </div>
 
         <div className="calendarWrap">
           <div className="dayofWeek oneweek">
             {days.map(day => (
-              <div className="box" key={day}>
+              <div className={`box borderBottomnone ${day === 'SAT' ? 'borderRightnone' : ''}`} key={day}>
                 <span className="text">{day}</span>
               </div>
             ))}

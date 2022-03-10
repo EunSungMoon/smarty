@@ -1,5 +1,5 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import InputRadio from "./InputRadio";
 
 export default function TodoList(props: any) {
@@ -19,8 +19,6 @@ export default function TodoList(props: any) {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list))
-    console.log(checkedList)
-    console.log(list)
   }
 
   return (

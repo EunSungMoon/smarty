@@ -1,24 +1,26 @@
 #calendar {
   padding: 40px 0;
-  .currentMonth {
+  .currentDate {
     @include display(center);
+    flex-direction: column;
     margin: 20px;
+    .currentYear{
+      @include display(center);
+      margin-bottom: 21px;
+    }
+    .currentMonth{
+      @include display(center);
+    }
     .thisMonth {
       font-weight: 700;
-      color: #292929;
-      line-height: 24px;
+      color: $gray-color;
+      font-size: 21px;
     }
-    .button {
-      width: 24px;
-      height: 24px;
+    .arrowbtn {
       margin: 0 8px;
       border: none;
-    }
-    .previous_icon {
-      background: url("../images/previous_arrow.svg") center no-repeat;
-    }
-    .next_icon {
-      background: url("../images/next_arrow.svg") center no-repeat;
+      background: none;
+      color: $gray-color;
     }
   }
   .calendarWrap {
@@ -36,8 +38,11 @@
     .box {
       width: 32px;
       height: 32px;
-      margin: 6px 6px;
+      padding: 6px 6px;
       font-size: 14px;
+      box-sizing: initial;
+      border-right: 1px solid $lightGray-color;
+      border-bottom: 1px solid $lightGray-color;
       .text {
         position: static;
         color: #292929;
@@ -86,6 +91,12 @@
         color: #484848;
         pointer-events: none;
       }
+    }
+    .borderBottomnone{
+      border-bottom: none;
+    }
+    .borderRightnone{
+      border-right: none;
     }
   }
 }

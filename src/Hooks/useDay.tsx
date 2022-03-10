@@ -8,12 +8,12 @@ export default function useDay(initialDay: any) {
   const [viewDate, setViewDate] = useState(initialDay);
   let token = `Token ${localStorage.getItem('token')}`
 
-  const loadCalendarAxios = async (xMonth: number) => {
+  const loadCalendarAxios = async (xYear: number, xMonth: number) => {
     try {
       setError(null);
       setLists(null);
       setLoading(true);
-      const loadData = await axios.get(`http://15.164.62.156:8000/api/todolist/2022/${xMonth}/`, {
+      const loadData = await axios.get(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': token
