@@ -20,6 +20,27 @@ export default function useDay(initialDay: any) {
         }
       })
       setLists(loadData.data)
+      console.log(loadData.data)
+    } catch (error: any) {
+      setError(error)
+      console.log(error)
+    }
+    setLoading(false)
+  }
+
+  const loadDayAxios = async (xYear: number, xMonth: number, xDay: number) => {
+    try {
+      setError(null);
+      setLists(null);
+      setLoading(true);
+      const loadData = await axios.get(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDay}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
+      })
+      console.log(loadData.data)
+      setLists(loadData.data)
     } catch (error: any) {
       setError(error)
       console.log(error)
@@ -33,6 +54,7 @@ export default function useDay(initialDay: any) {
     error,
     viewDate,
     setViewDate,
-    loadCalendarAxios
+    loadCalendarAxios,
+    loadDayAxios
   }
 }

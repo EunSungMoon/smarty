@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
@@ -6,7 +6,7 @@ import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
 export default function Calendar() {
   const dayjs = require('dayjs');
   const today = dayjs();
-  const { viewDate, lists, loading, error, loadCalendarAxios, setViewDate } = useDay(today);
+  const { viewDate, lists, loading, error, loadCalendarAxios, setViewDate, loadDayAxios } = useDay(today);
 
   const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
@@ -43,10 +43,13 @@ export default function Calendar() {
             let isNone = current.format('MM') === viewDate.format('MM') ? '' : 'none';
             let holiday = current.day() === 0 ? 'holiday' : '';
             let satDay = current.day() === 6 ? 'satDay' : '';
-
             return (
-              <div className={`box ${current.day() === 6 ? 'borderRightnone' : ''}`} key={current.format('D')} >
-                <div className={`text ${isSelected} ${isToday} ${isNone}`} onClick={() => { setSelectDate(current) }}>
+              <div
+                className={`box ${current.day() === 6 ? 'borderRightnone' : ''}`} key={current.format('D')}>
+                <div
+                  className={`text ${isSelected} ${isToday} ${isNone}`}
+                  onClick={() => { handleLoadDayData(current.date(), current) }}
+                >
                   <span className={`day ${holiday} ${satDay}`}>{current.format('D')}</span>
                   {isToday ? (<span className="isToday">오늘</span>)
                     : isSelected ? (<span className="isSelected"></span>) : null}
@@ -74,6 +77,11 @@ export default function Calendar() {
       setViewDate(viewDate.subtract(1, changeDate))
     }
     return loadCalendarAxios(currentYear, currentMonth);
+  }
+
+  const handleLoadDayData = (currentDate: number, c: number) => {
+    loadDayAxios(currentYear, currentMonth, currentDate)
+    setSelectDate(c)
   }
 
   if (loading) return <div>로딩중...</div>
