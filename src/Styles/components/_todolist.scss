@@ -1,7 +1,7 @@
 #todolist {
   padding: 40px 0;
   .flex-start {
-    @include display(flex-start);
+    @include display(flex-start, baseline);
   }
   .todolistWrap {
     margin-bottom: 21px;
@@ -12,7 +12,7 @@
     }
   }
   .todolist {
-    @include display(space-between);
+    @include display(space-between, baseline);
     padding: 0;
     .title {
       width: 88%;

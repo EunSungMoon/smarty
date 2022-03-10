@@ -1,15 +1,15 @@
 #calendar {
   padding: 40px 0;
   .currentDate {
-    @include display(center);
+    @include display(center, center);
     flex-direction: column;
     margin: 20px;
     .currentYear {
-      @include display(center);
+      @include display(center, center);
       margin-bottom: 21px;
     }
     .currentMonth {
-      @include display(center);
+      @include display(center, center);
     }
     .thisMonth {
       font-weight: 700;
@@ -27,7 +27,7 @@
     text-align: center;
     margin: 20px;
     .oneweek {
-      @include display(space-between);
+      @include display(space-between, center);
       cursor: pointer;
       width: 100%;
     }
@@ -51,7 +51,7 @@
       }
       .day {
         position: relative;
-        @include display(center);
+        @include display(center, center);
         width: 32px;
         height: 32px;
       }

@@ -1,5 +1,5 @@
 .loginWrap {
-  @include display(center);
+  @include display(center, center);
   flex-direction: column;
   min-height: 93vh;
   font-family: "NanumSquareBold";

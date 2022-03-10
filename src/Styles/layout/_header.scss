@@ -2,7 +2,7 @@
   height: 80px;
   border-bottom: 5px solid #000000;
   .headerWrap {
-    @include display(space-between);
+    @include display(space-between, center);
     height: 75px;
     padding: 14px 10px;
     .logoImg {
