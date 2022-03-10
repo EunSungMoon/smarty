@@ -52,10 +52,6 @@
   .checkedbox {
     background: url("../images/complete.png") no-repeat;
     background-position-y: center;
-
-    .importance {
-      border-color: $gray-color;
-    }
   }
 
   .newTodolistWrap {

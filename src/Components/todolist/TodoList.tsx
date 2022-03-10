@@ -19,8 +19,8 @@ export default function TodoList(props: any) {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list))
-      console.log(checkedList)
-      console.log(list)
+    console.log(checkedList)
+    console.log(list)
   }
 
   return (
@@ -28,7 +28,7 @@ export default function TodoList(props: any) {
       {
         props.lists.map((list: any) => (
           <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`} key={list.id} >
-            <label className={`importance importance-${list.importance}`} >
+            <label className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`} >
               <input
                 type='checkbox'
                 value={list.importance}
@@ -73,6 +73,6 @@ export default function TodoList(props: any) {
           </div>
         </div>
       </form>
-    </section>
+    </section >
   )
 }
