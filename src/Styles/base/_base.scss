@@ -15,3 +15,15 @@ body {
 .margin-right5px{
   margin-right: 5px;
 }
+.errorMsg {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+.errorMsg-not {
+  @extend .errorMsg;
+  color: $red-color;
+}
+.errorMsg-ok {
+  @extend .errorMsg;
+  color: $lightGreen-color;
+}

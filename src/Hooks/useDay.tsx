@@ -6,7 +6,7 @@ export default function useDay(initialDay: any) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [viewDate, setViewDate] = useState(initialDay);
-  let token = `Token ${localStorage.getItem('token')}`
+  const token = `Token ${localStorage.getItem('token')}`
 
   const loadCalendarAxios = async (xYear: number, xMonth: number) => {
     try {

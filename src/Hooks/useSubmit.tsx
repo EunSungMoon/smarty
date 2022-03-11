@@ -20,7 +20,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const dayjs = require('dayjs');
   const today = dayjs();
   const Year = today.year();
-  const Month=today.add(1, 'month').month()
+  const Month = today.add(1, 'month').month()
   // const Month = month.month();
 
   const Day = today.date()
@@ -47,6 +47,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
           title: values.title,
           repeat: values.repeat,
           importance: values.importance,
+          date: `${xYear}-${xMonth}-${xDate}`
         },
         {
           headers: {
@@ -54,7 +55,9 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
             'Authorization': token
           }
         })
-      console.log(loadAxios)
+      if (loadAxios.status === 201) {
+        window.location.replace('/todolist');
+      }
     }
     catch (error) {
       console.log(error)

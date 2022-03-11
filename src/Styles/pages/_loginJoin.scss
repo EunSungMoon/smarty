@@ -82,16 +82,4 @@
       margin: 9.5px 0;
     }
   }
-  .errorMsg {
-    margin-bottom: 0;
-    font-size: 13px;
-  }
-  .errorMsg-not {
-    @extend .errorMsg;
-    color: $red-color;
-  }
-  .errorMsg-ok {
-    @extend .errorMsg;
-    color: $lightGreen-color;
-  }
 }
