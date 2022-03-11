@@ -1,6 +1,5 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
 import { useState } from "react";
-// import InputRadio from "./InputRadio";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -88,7 +87,6 @@ export default function TodoList(props: any) {
               <div className="flex-start">
                 <div className="flex-start repeatWrap">
                   <p className="margin0px selectTitle box">반복</p>
-                  {/* <InputRadio radios={repeats} /> */}
                   {repeats.map((v: any) => (
                     <div className="radioWrap" key={v.value}>
                       <label className={`box radio ${repeatClick.includes(v) ? 'checkedRadio' : ''}`} >
@@ -108,7 +106,6 @@ export default function TodoList(props: any) {
 
                 <div className="flex-start">
                   <p className="margin0px selectTitle box">중요도</p>
-                  {/* <InputRadio radios={importances} /> */}
                   {importances.map((v: any) => (
                     <div className="radioWrap" key={v.value}>
                       <label className={`box radio ${importanceClick.includes(v) ? 'checkedRadio' : ''}`} >
