@@ -1,8 +1,20 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import React, { useState } from "react";
-import InputRadio from "./InputRadio";
+import { useState } from "react";
+// import InputRadio from "./InputRadio";
+import useSubmit from "../../Hooks/useSubmit";
+import error from "../../models/error";
 
 export default function TodoList(props: any) {
+  const { values, errors, handleSubmit, handleChange } = useSubmit({
+    initialValues: {
+      title: '',
+      repeat: 0,
+      importance: 0
+    },
+    onSubmit: () => { },
+    error
+  })
+
   const importances = [
     { value: '0', text: '낮음' },
     { value: '1', text: '보통' },
@@ -14,11 +26,23 @@ export default function TodoList(props: any) {
   ]
 
   const [checkedList, setCheckedLists] = useState<any>([]);
+  const [repeatClick, setRepeatClick] = useState<any>([]);
+  const [importanceClick, setImportanceClick] = useState<any>([]);
 
   const onCheckedElement = (checked: boolean, list: string) => {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list))
+  }
+
+  const handleCheckbox = (checked: boolean, list: string, first: any, second: any, e: React.ChangeEvent<HTMLInputElement>) => { //const [second, first]=useState()
+    handleChange(e);
+    checked ?
+      first([second[0], list]) :
+      first(second.filter((el: string) => el !== list))
+
+    console.log(checked)
+    console.log(second)
   }
 
   return (
@@ -46,28 +70,64 @@ export default function TodoList(props: any) {
           </form>
         ))
       }
-      <form className="newTodolistWrap">
+      <form className="newTodolistWrap" onSubmit={handleSubmit}>
         <input type='checkbox' id='importance' className="displayNone" />
         <label htmlFor='importance' className='importance importance-3'></label>
         <div className="todolist container flex-start">
           <div className="todolistForm container">
-            <input type='text' />
+            <input
+              type='text'
+              name='title'
+              value={values.title}
+              onChange={handleChange}
+            />
+            {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
 
             <div className="flex-start">
               <div className="flex-start repeatWrap">
                 <p className="margin0px selectTitle box">반복</p>
-                <InputRadio radios={repeats} />
+                {/* <InputRadio radios={repeats} /> */}
+                {repeats.map((v: any) => (
+                  <div className="radioWrap" key={v.value}>
+                    <label className={`box radio ${repeatClick.includes(v) ? 'checkedRadio' : ''}`} >
+                      <input
+                        type='radio'
+                        name='repeat'
+                        value={v.value}
+                        className="displayNone"
+                        onChange={(e) => handleCheckbox(e.target.checked, v, setRepeatClick, repeatClick,e)}
+                        defaultChecked={repeatClick.includes(v) ? true : false}
+                      />
+                      {v.text}
+                    </label>
+                  </div>
+                ))}
               </div>
 
               <div className="flex-start">
                 <p className="margin0px selectTitle box">중요도</p>
-                <InputRadio radios={importances} />
+                {/* <InputRadio radios={importances} /> */}
+                {importances.map((v: any) => (
+                  <div className="radioWrap" key={v.value}>
+                    <label className={`box radio ${importanceClick.includes(v) ? 'checkedRadio' : ''}`} >
+                      <input
+                        type='radio'
+                        name='importance'
+                        value={v.value}
+                        className="displayNone"
+                        onChange={(e) => handleCheckbox(e.target.checked, v, setImportanceClick, importanceClick,e)}
+                        defaultChecked={importanceClick.includes(v) ? true : false}
+                      />
+                      {v.text}
+                    </label>
+                  </div>
+                ))}
               </div>
 
             </div>
           </div>
           <div className="buttonWrap">
-            <button type="button" title='등록하기' className="editBtn"><HiPlus /></button>
+            <button type="submit" title='등록하기' className="editBtn"><HiPlus /></button>
           </div>
         </div>
       </form>

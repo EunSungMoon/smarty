@@ -4,7 +4,7 @@ export default function validate({ username, password, passwordCheck }: validate
   let errors = {
     username,
     password,
-    passwordCheck
+    passwordCheck,
   };
 
   if (!username) {
@@ -30,5 +30,6 @@ export default function validate({ username, password, passwordCheck }: validate
   } else {
     errors.passwordCheck = ''
   }
+
   return errors;
 }
