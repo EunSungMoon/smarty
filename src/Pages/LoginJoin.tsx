@@ -8,7 +8,6 @@ export default function LoginJoin() {
   const [clicked, setclicked] = useState(false);
   const [noMatchPassword, setNoMatchPassword] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState('');
-  const [test, setTest] = useState(false)
 
   const { values, errors, errorDisappear, checkID, loginFail, changeBtnName, handleChange, handleSubmit, handleCheckID } = useJoin({
     initialValues: { username: '', password: '', passwordCheck: '' },
