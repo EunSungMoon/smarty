@@ -1,5 +1,5 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import { useState } from "react";
+import React, { useState } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -8,8 +8,8 @@ export default function TodoList(props: any) {
   const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete } = useSubmit({
     initialValues: {
       title: '',
-      repeat: 0,
-      importance: 0
+      repeat: '0',
+      importance: '0'
     },
     onSubmit: () => { },
     error
@@ -26,29 +26,24 @@ export default function TodoList(props: any) {
   ]
 
   const [checkedList, setCheckedLists] = useState<any>([]);
-  const [repeatClick, setRepeatClick] = useState<any>([]);
-  const [importanceClick, setImportanceClick] = useState<any>([]);
+  const [repeatDefault, setRepeatDefault] = useState(repeats[0].value);
+  const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
+
+  const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
+    setFirst((e.target as HTMLInputElement).value);
+    switch ((e.target as HTMLInputElement).name) {
+      case 'repeat':
+        return values.repeat = (e.target as HTMLInputElement).value
+      case 'importance':
+        return values.importance = (e.target as HTMLInputElement).value
+    }
+    console.log((e.target as HTMLInputElement).value)
+  }
 
   const onCheckedElement = (checked: boolean, list: string) => {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list))
-  }
-
-  const handleCheckbox = (
-    checked: boolean,
-    list: string,
-    first: any,
-    second: any,
-    e: React.ChangeEvent<HTMLInputElement>) => { //const [second, first]=useState()
-
-    handleChange(e);
-    checked ?
-      first([second[0], list]) :
-      first(second.filter((el: string) => el !== list))
-
-    console.log(checked)
-    console.log(second)
   }
 
   return (
@@ -72,14 +67,13 @@ export default function TodoList(props: any) {
                   <p className="margin0px selectTitle box">반복</p>
                   {repeats.map((v: any) => (
                     <div className="radioWrap" key={v.value}>
-                      <label className={`box radio ${repeatClick.includes(v) ? 'checkedRadio' : ''}`} >
+                      <label className={`box radio ${repeatDefault === v.value ? 'checkedRadio' : ''}`} >
                         <input
                           type='radio'
                           name='repeat'
                           value={v.value}
                           className="displayNone"
-                          onChange={(e) => handleCheckbox(e.target.checked, v, setRepeatClick, repeatClick, e)}
-                          defaultChecked={repeatClick.includes(v) ? true : false}
+                          onClick={(e) => handleRadioButton(e, setRepeatDefault)}
                         />
                         {v.text}
                       </label>
@@ -91,14 +85,13 @@ export default function TodoList(props: any) {
                   <p className="margin0px selectTitle box">중요도</p>
                   {importances.map((v: any) => (
                     <div className="radioWrap" key={v.value}>
-                      <label className={`box radio ${importanceClick.includes(v) ? 'checkedRadio' : ''}`} >
+                      <label className={`box radio ${importanceDefault === v.value ? 'checkedRadio' : ''}`} >
                         <input
                           type='radio'
                           name='importance'
                           value={v.value}
                           className="displayNone"
-                          onChange={(e) => handleCheckbox(e.target.checked, v, setImportanceClick, importanceClick, e)}
-                          defaultChecked={importanceClick.includes(v) ? true : false}
+                          onClick={(e) => handleRadioButton(e, setImportanceDefault)}
                         />
                         {v.text}
                       </label>
@@ -132,7 +125,6 @@ export default function TodoList(props: any) {
                   <button type="button" title='삭제하기' className="editBtn" onClick={() => handleDelete(Year, Month, Day, list.id)}><HiX /></button>
                 </div>
               </div>
-
             </form>
           ))
         }

@@ -3,8 +3,8 @@ import axios from "axios";
 
 export interface todolistType {
   title: string;
-  repeat: number;
-  importance: number;
+  repeat: string;
+  importance: string;
 }
 
 export interface initValues {
