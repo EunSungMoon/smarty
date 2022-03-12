@@ -31,13 +31,13 @@ export default function TodoList(props: any) {
 
   const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
     setFirst((e.target as HTMLInputElement).value);
+    
     switch ((e.target as HTMLInputElement).name) {
       case 'repeat':
         return values.repeat = (e.target as HTMLInputElement).value
       case 'importance':
         return values.importance = (e.target as HTMLInputElement).value
     }
-    console.log((e.target as HTMLInputElement).value)
   }
 
   const onCheckedElement = (checked: boolean, list: string) => {
