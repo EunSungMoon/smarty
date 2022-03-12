@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export interface todolistType {
@@ -21,8 +21,6 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const today = dayjs();
   const Year = today.year();
   const Month = today.add(1, 'month').month()
-  // const Month = month.month();
-
   const Day = today.date()
 
   let token = `Token ${localStorage.getItem('token')}`
@@ -39,6 +37,15 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     await new Promise(r => setTimeout(r, 1000));
     setErrors(error(values));
   };
+
+  const handleDelete = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
+    await axios.delete(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`, {
+      headers: {
+        'Authorization': token
+      },
+    })
+    window.location.replace('/todolist');
+  }
 
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
     try {
@@ -70,11 +77,16 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     }
     setSubmitting(false)
   }, [errors]);
+
   return {
     values,
     errors,
     submitting,
+    Year,
+    Month,
+    Day,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    handleDelete
   }
 }
