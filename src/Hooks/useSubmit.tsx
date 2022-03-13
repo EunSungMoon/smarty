@@ -38,6 +38,8 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     setErrors(error(values));
   };
 
+
+  //삭제하기
   const handleDelete = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
     await axios.delete(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`, {
       headers: {
@@ -45,6 +47,30 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
       },
     })
     window.location.replace('/todolist');
+  }
+
+  const handleEdit = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
+    try {
+      const loadAxios = await axios.post(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
+        {
+          title: values.title,
+          repeat: values.repeat,
+          importance: values.importance,
+          date: `${xYear}-${xMonth}-${xDate}`
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+          }
+        })
+      if (loadAxios.status === 201) {
+        window.location.replace('/todolist');
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
   }
 
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
@@ -70,6 +96,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
       console.log(error)
     }
   }
+
   useEffect(() => {
     if (submitting) {
       handleAxios(Year, Month, Day)
@@ -87,6 +114,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     Day,
     handleChange,
     handleSubmit,
-    handleDelete
+    handleDelete,
+    handleEdit
   }
 }

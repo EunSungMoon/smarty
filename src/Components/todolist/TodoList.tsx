@@ -5,7 +5,7 @@ import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
 
 export default function TodoList(props: any) {
-  const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete } = useSubmit({
+  const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete, handleEdit } = useSubmit({
     initialValues: {
       title: '',
       repeat: '0',
