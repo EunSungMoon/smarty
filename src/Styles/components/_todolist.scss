@@ -5,6 +5,7 @@
   }
   .todolistWrap {
     margin-bottom: 21px;
+    flex-flow: row wrap;
     .title {
       font-family: "NanumSquareBold";
       font-size: 21px;
@@ -54,7 +55,7 @@
     background-position-y: center;
   }
 
-  .newTodolistWrap {
+  .editTodolistWrap {
     display: flex;
     justify-content: flex-start;
     .todolist {
