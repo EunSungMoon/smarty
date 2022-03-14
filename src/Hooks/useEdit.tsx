@@ -23,6 +23,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const Month = today.add(1, 'month').month()
   const Day = today.date()
 
+
   let token = `Token ${localStorage.getItem('token')}`
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,21 +39,10 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     setErrors(error(values));
   };
 
-
-  //삭제하기
-  const handleDelete = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
-    await axios.delete(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`, {
-      headers: {
-        'Authorization': token
-      },
-    })
-    window.location.replace('/todolist');
-  }
-  
   //수정하기
   const handleEdit = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
     try {
-      const loadAxios = await axios.post(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
+      const loadAxios = await axios.put(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
         {
           title: values.title,
           repeat: values.repeat,
@@ -65,32 +55,27 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
             'Authorization': token
           }
         })
-      if (loadAxios.status === 201) {
+      if (loadAxios.status === 200) {
         window.location.replace('/todolist');
       }
+      console.log(loadAxios)
     }
     catch (error) {
       console.log(error)
     }
   }
 
-  useEffect(() => {
-    if (submitting) {
-      onSubmit(values);
-    }
-    setSubmitting(false)
-  }, [errors]);
-
   return {
     values,
     errors,
     submitting,
+    setSubmitting,
+    onSubmit,
     Year,
     Month,
     Day,
     handleChange,
     handleSubmit,
-    handleDelete,
     handleEdit
   }
 }

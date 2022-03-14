@@ -3,19 +3,9 @@ import React, { useState } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
-import { useParams } from "react-router-dom";
+import EditTodolist from "./EditTodolist";
 
 export default function TodoList(props: any) {
-  const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete, handleEdit } = useSubmit({
-    initialValues: {
-      title: '',
-      repeat: '0',
-      importance: '0'
-    },
-    onSubmit: () => { },
-    error
-  })
-
   const importances = [
     { value: '0', text: '낮음' },
     { value: '1', text: '보통' },
@@ -31,7 +21,16 @@ export default function TodoList(props: any) {
   const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
   const [clickEditButton, setClickEditButton] = useState(false);
   const [clickedId, setClickedId] = useState('');
-  const { id } = useParams<any>();
+
+  const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete, } = useSubmit({
+    initialValues: {
+      title: '',
+      repeat: '0',
+      importance: '0'
+    },
+    onSubmit: () => { },
+    error
+  });
 
   const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
     setFirst((e.target as HTMLInputElement).value);
@@ -42,82 +41,19 @@ export default function TodoList(props: any) {
       case 'importance':
         return values.importance = (e.target as HTMLInputElement).value
     }
-  }
+  };
 
   const onCheckedElement = (checked: boolean, list: string) => {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list))
-  }
-
-  // const editTodolist = (xId: string) => {
-  //   if (clickEditButton && clickedId === xId) {
-  //     return (
-  //       <form className="editTodolistWrap" onSubmit={handleSubmit}>
-  //         <div className="todolist container flex-start">
-  //           <div className="todolistForm container">
-  //             <input
-  //               type='text'
-  //               name='title'
-  //               value={values.title}
-  //               onChange={handleChange}
-  //               // defaultValue={values.title}
-  //             />
-  //             {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
-
-  //             <div className="flex-start">
-  //               <div className="flex-start repeatWrap">
-  //                 <p className="margin0px selectTitle box">반복</p>
-  //                 {repeats.map((v: any) => (
-  //                   <div className="radioWrap" key={v.value}>
-  //                     <label className={`box radio ${repeatDefault === v.value ? 'checkedRadio' : ''}`} >
-  //                       <input
-  //                         type='radio'
-  //                         name='repeat'
-  //                         value={v.value}
-  //                         className="displayNone"
-  //                         onClick={(e) => handleRadioButton(e, setRepeatDefault)}
-  //                       />
-  //                       {v.text}
-  //                     </label>
-  //                   </div>
-  //                 ))}
-  //               </div>
-
-  //               <div className="flex-start">
-  //                 <p className="margin0px selectTitle box">중요도</p>
-  //                 {importances.map((v: any) => (
-  //                   <div className="radioWrap" key={v.value}>
-  //                     <label className={`box radio ${importanceDefault === v.value ? 'checkedRadio' : ''}`} >
-  //                       <input
-  //                         type='radio'
-  //                         name='importance'
-  //                         value={v.value}
-  //                         className="displayNone"
-  //                         onClick={(e) => handleRadioButton(e, setImportanceDefault)}
-  //                       />
-  //                       {v.text}
-  //                     </label>
-  //                   </div>
-  //                 ))}
-  //               </div>
-  //             </div>
-  //           </div>
-  //           <div className="buttonWrap">
-  //             <button type="submit" title='등록하기' className="editBtn"><HiOutlinePencilAlt /></button>
-  //           </div>
-  //         </div>
-  //       </form>
-  //     )
-  //   }
-  // }
+  };
 
   const handleEditButton = (xId: string) => {
-    console.log(clickedId)
     setClickEditButton(true);
     setClickedId(xId)
   }
-
+  // if (clickEditButton && clickedId === xId) {
   return (
     <section id='todolist' className="container">
       <Scrollbars style={{ height: 600 }}>
@@ -146,6 +82,7 @@ export default function TodoList(props: any) {
                           value={v.value}
                           className="displayNone"
                           onClick={(e) => handleRadioButton(e, setRepeatDefault)}
+                          onChange={handleChange}
                         />
                         {v.text}
                       </label>
@@ -164,6 +101,7 @@ export default function TodoList(props: any) {
                           value={v.value}
                           className="displayNone"
                           onClick={(e) => handleRadioButton(e, setImportanceDefault)}
+                          onChange={handleChange}
                         />
                         {v.text}
                       </label>
@@ -198,7 +136,16 @@ export default function TodoList(props: any) {
                   </div>
                 </div>
               </form>
-              {/* {editTodolist(list.id)} */}
+              {clickEditButton && clickedId === list.id ?
+                <EditTodolist 
+                  id={list.id}
+                  title={list.title}
+                  repeats={repeats}
+                  importances={importances}
+                  clickedrepeat={list.repeat}
+                  clickedimportance={list.importance}
+                />
+                : null}
             </React.Fragment>
           ))
         }

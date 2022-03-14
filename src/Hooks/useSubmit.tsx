@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export interface todolistType {
   title: string;
@@ -41,38 +40,13 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   };
 
   //삭제하기
-  const handleDelete = async (xYear: number, xMonth: number, xDate: number, xid:any) => {
+  const handleDelete = async (xYear: number, xMonth: number, xDate: number, xid: any) => {
     await axios.delete(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xid}/`, {
       headers: {
         'Authorization': token
       },
     })
     window.location.replace('/todolist');
-  }
-
-  //수정하기
-  const handleEdit = async (xYear: number, xMonth: number, xDate: number, xid:any) => {
-    try {
-      const loadAxios = await axios.post(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xid}/`,
-        {
-          title: values.title,
-          repeat: values.repeat,
-          importance: values.importance,
-          date: `${xYear}-${xMonth}-${xDate}`
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token
-          }
-        })
-      if (loadAxios.status === 201) {
-        window.location.replace('/todolist');
-      }
-    }
-    catch (error) {
-      console.log(error)
-    }
   }
 
   //등록하기
@@ -118,6 +92,5 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     handleChange,
     handleSubmit,
     handleDelete,
-    handleEdit
   }
 }
