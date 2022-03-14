@@ -91,6 +91,15 @@
             background: $lightGray-color;
           }
           .checkedRadio {
+            &-0{
+              background: $yellow-color;
+            }
+            &-1{
+              background: $lightGreen-color;
+            }
+            &-2{
+              background: $red-color;
+            }
             background: $gray-color;
           }
         }

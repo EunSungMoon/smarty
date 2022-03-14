@@ -36,7 +36,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
     }
   };
 
-console.log(clickedimportance)
+  console.log(clickedimportance)
 
   return (
     <form className="editTodolistWrap" onSubmit={handleSubmit}>
@@ -74,7 +74,7 @@ console.log(clickedimportance)
               <p className="margin0px selectTitle box">중요도</p>
               {importances.map((v: any) => (
                 <div className="radioWrap" key={v.value}>
-                  <label className={`box radio ${importanceDefault === v.value ? 'checkedRadio' : ''}`} >
+                  <label className={`box radio ${importanceDefault === v.value ? `checkedRadio-${v.value}` : ''}`} >
                     <input
                       type='radio'
                       name='importance'
