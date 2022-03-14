@@ -50,67 +50,67 @@ export default function TodoList(props: any) {
       setCheckedLists(checkedList.filter((el: string) => el !== list))
   }
 
-  const editTodolist = (xId: string) => {
-    if (clickEditButton && clickedId === xId) {
-      return (
-        <form className="editTodolistWrap" onSubmit={handleSubmit}>
-          <div className="todolist container flex-start">
-            <div className="todolistForm container">
-              <input
-                type='text'
-                name='title'
-                value={values.title}
-                onChange={handleChange}
-                defaultValue={values.title}
-              />
-              {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
+  // const editTodolist = (xId: string) => {
+  //   if (clickEditButton && clickedId === xId) {
+  //     return (
+  //       <form className="editTodolistWrap" onSubmit={handleSubmit}>
+  //         <div className="todolist container flex-start">
+  //           <div className="todolistForm container">
+  //             <input
+  //               type='text'
+  //               name='title'
+  //               value={values.title}
+  //               onChange={handleChange}
+  //               // defaultValue={values.title}
+  //             />
+  //             {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
 
-              <div className="flex-start">
-                <div className="flex-start repeatWrap">
-                  <p className="margin0px selectTitle box">반복</p>
-                  {repeats.map((v: any) => (
-                    <div className="radioWrap" key={v.value}>
-                      <label className={`box radio ${repeatDefault === v.value ? 'checkedRadio' : ''}`} >
-                        <input
-                          type='radio'
-                          name='repeat'
-                          value={v.value}
-                          className="displayNone"
-                          onClick={(e) => handleRadioButton(e, setRepeatDefault)}
-                        />
-                        {v.text}
-                      </label>
-                    </div>
-                  ))}
-                </div>
+  //             <div className="flex-start">
+  //               <div className="flex-start repeatWrap">
+  //                 <p className="margin0px selectTitle box">반복</p>
+  //                 {repeats.map((v: any) => (
+  //                   <div className="radioWrap" key={v.value}>
+  //                     <label className={`box radio ${repeatDefault === v.value ? 'checkedRadio' : ''}`} >
+  //                       <input
+  //                         type='radio'
+  //                         name='repeat'
+  //                         value={v.value}
+  //                         className="displayNone"
+  //                         onClick={(e) => handleRadioButton(e, setRepeatDefault)}
+  //                       />
+  //                       {v.text}
+  //                     </label>
+  //                   </div>
+  //                 ))}
+  //               </div>
 
-                <div className="flex-start">
-                  <p className="margin0px selectTitle box">중요도</p>
-                  {importances.map((v: any) => (
-                    <div className="radioWrap" key={v.value}>
-                      <label className={`box radio ${importanceDefault === v.value ? 'checkedRadio' : ''}`} >
-                        <input
-                          type='radio'
-                          name='importance'
-                          value={v.value}
-                          className="displayNone"
-                          onClick={(e) => handleRadioButton(e, setImportanceDefault)}
-                        />
-                        {v.text}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="buttonWrap">
-              <button type="submit" title='등록하기' className="editBtn"><HiOutlinePencilAlt /></button>
-            </div>
-          </div>
-        </form>
-      )
-    }
-  }
+  //               <div className="flex-start">
+  //                 <p className="margin0px selectTitle box">중요도</p>
+  //                 {importances.map((v: any) => (
+  //                   <div className="radioWrap" key={v.value}>
+  //                     <label className={`box radio ${importanceDefault === v.value ? 'checkedRadio' : ''}`} >
+  //                       <input
+  //                         type='radio'
+  //                         name='importance'
+  //                         value={v.value}
+  //                         className="displayNone"
+  //                         onClick={(e) => handleRadioButton(e, setImportanceDefault)}
+  //                       />
+  //                       {v.text}
+  //                     </label>
+  //                   </div>
+  //                 ))}
+  //               </div>
+  //             </div>
+  //           </div>
+  //           <div className="buttonWrap">
+  //             <button type="submit" title='등록하기' className="editBtn"><HiOutlinePencilAlt /></button>
+  //           </div>
+  //         </div>
+  //       </form>
+  //     )
+  //   }
+  // }
 
   const handleEditButton = (xId: string) => {
     console.log(clickedId)
@@ -179,8 +179,8 @@ export default function TodoList(props: any) {
         </form>
         {
           props.lists.map((list: any) => (
-            <>
-              <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`} data-value={list.id} key={list.id}>
+            <React.Fragment key={list.id}>
+              <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`}>
                 <div className="todolist container">
                   <label className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`} >
                     <input
@@ -198,8 +198,8 @@ export default function TodoList(props: any) {
                   </div>
                 </div>
               </form>
-              {editTodolist(list.id)}
-            </>
+              {/* {editTodolist(list.id)} */}
+            </React.Fragment>
           ))
         }
       </Scrollbars>
