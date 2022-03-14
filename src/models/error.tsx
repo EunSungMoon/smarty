@@ -5,7 +5,7 @@ export default function validate({ title }: todolistType) {
     title
   };
 
-  if (!title) {
+  if (title.length === 0) {
     errors.title = "*할일이 입력되지 않았습니다.";
   }
   else {

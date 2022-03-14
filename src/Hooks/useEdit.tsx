@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 export interface todolistType {
@@ -22,7 +22,6 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const Year = today.year();
   const Month = today.add(1, 'month').month()
   const Day = today.date()
-
 
   let token = `Token ${localStorage.getItem('token')}`
 
@@ -69,11 +68,11 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     values,
     errors,
     submitting,
-    setSubmitting,
     onSubmit,
     Year,
     Month,
     Day,
+    setSubmitting,
     handleChange,
     handleSubmit,
     handleEdit

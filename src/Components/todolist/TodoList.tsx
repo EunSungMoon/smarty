@@ -53,7 +53,7 @@ export default function TodoList(props: any) {
     setClickEditButton(true);
     setClickedId(xId)
   }
-  // if (clickEditButton && clickedId === xId) {
+
   return (
     <section id='todolist' className="container">
       <Scrollbars style={{ height: 600 }}>

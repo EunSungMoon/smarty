@@ -4,18 +4,26 @@ import useEdit from '../../Hooks/useEdit'
 import error from "../../models/error";
 
 export default function EditTodolist({ id, title, repeats, importances, clickedrepeat, clickedimportance }: any) {
-  const [repeatDefault, setRepeatDefault] = useState(clickedrepeat);
-  const [importanceDefault, setImportanceDefault] = useState(clickedimportance);
-
-  const { submitting, setSubmitting, onSubmit, Year, Month, Day, values, errors, handleSubmit, handleChange, handleEdit } = useEdit({
+  const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleSubmit, handleChange, handleEdit } = useEdit({
     initialValues: {
-      title: '',
-      repeat: '0',
-      importance: '0'
+      title: title,
+      repeat: clickedrepeat,
+      importance: clickedimportance
     },
     onSubmit: () => { },
     error
   })
+
+  const [repeatDefault, setRepeatDefault] = useState(clickedrepeat);
+  const [importanceDefault, setImportanceDefault] = useState(clickedimportance);
+
+  useEffect(() => {
+    if (submitting) {
+      onSubmit(values);
+      handleEdit(Year, Month, Day, id)
+    }
+    setSubmitting(false)
+  }, [errors]);
 
   const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
     setFirst((e.target as HTMLInputElement).value);
@@ -28,14 +36,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
     }
   };
 
-  useEffect(() => {
-    if (submitting) {
-      onSubmit(values);
-      handleEdit(Year, Month, Day, id)
-      console.log('test')
-    }
-    setSubmitting(false)
-  }, [errors]);
+console.log(clickedimportance)
 
   return (
     <form className="editTodolistWrap" onSubmit={handleSubmit}>
@@ -47,7 +48,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
             defaultValue={title}
             onChange={handleChange}
           />
-          {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
+          {title.length === 0 && <p className='errorMsg-not'>*할일이 입력되지 않았습니다.</p>}
 
           <div className="flex-start">
             <div className="flex-start repeatWrap">
