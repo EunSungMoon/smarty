@@ -1,5 +1,5 @@
-import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import React, { useState, useEffect } from "react";
+import { HiOutlinePencilAlt, HiPlus, HiX, HiOutlineTrash } from "react-icons/hi";
+import React, { useState } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -17,7 +17,6 @@ export default function TodoList(props: any) {
     { value: '1', text: '매주' }
   ]
 
-  const [test, setTest] = useState({})
   const [checkedList, setCheckedLists] = useState<any>([]);
   const [repeatDefault, setRepeatDefault] = useState(repeats[0].value);
   const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
@@ -60,7 +59,6 @@ export default function TodoList(props: any) {
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list));
     // handleEditChange(e)
-    setTest(props.lists)
   };
 
   const handleEditButton = (xId: string) => {
@@ -159,7 +157,7 @@ export default function TodoList(props: any) {
                       className="margin-right5px editBtn"
                       onClick={() => handleEditButton(list.id)}
                     >
-                      <HiOutlinePencilAlt />
+                      {clickEditButton && clickedId === list.id ? <HiX /> : < HiOutlinePencilAlt />}
                     </button>
                     <button
                       type="button"
@@ -167,7 +165,7 @@ export default function TodoList(props: any) {
                       className="editBtn"
                       onClick={() => handleDelete(Year, Month, Day, list.id)}
                     >
-                      <HiX />
+                      <HiOutlineTrash />
                     </button>
                   </div>
                 </div>
