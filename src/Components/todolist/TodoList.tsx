@@ -4,6 +4,7 @@ import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
 import EditTodolist from "./EditTodolist";
+import useEdit from '../../Hooks/useEdit'
 
 export default function TodoList(props: any) {
   const importances = [
@@ -32,6 +33,16 @@ export default function TodoList(props: any) {
     error
   });
 
+  const { handleEditChange, handleEdit } = useEdit({
+    initialValues: {
+      title: values.title,
+      repeat: values.repeat,
+      importance: values.importance
+    },
+    onSubmit: () => { },
+    error
+  })
+
   const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
     setFirst((e.target as HTMLInputElement).value);
 
@@ -46,7 +57,11 @@ export default function TodoList(props: any) {
   const onCheckedElement = (checked: boolean, list: string) => {
     checked ?
       setCheckedLists([...checkedList, list]) :
-      setCheckedLists(checkedList.filter((el: string) => el !== list))
+      setCheckedLists(checkedList.filter((el: string) => el !== list));
+
+      console.log([...checkedList].includes(list))
+      if(checkedList)
+    return handleEditChange
   };
 
   const handleEditButton = (xId: string) => {
@@ -120,7 +135,9 @@ export default function TodoList(props: any) {
             <React.Fragment key={list.id}>
               <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`}>
                 <div className="todolist container">
-                  <label className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`} >
+                  <label
+                    className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`}
+                  >
                     <input
                       type='checkbox'
                       value={list.importance}

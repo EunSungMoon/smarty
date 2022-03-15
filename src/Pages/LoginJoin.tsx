@@ -44,7 +44,7 @@ export default function LoginJoin() {
               <button
                 type='button'
                 onClick={handleCheckID}
-                className={`uesrCheckBtn ${checkID && errorDisappear ? 'abledBtn' : 'disaledBtn'}`}
+                className={`uesrCheckBtn ${checkID && errorDisappear ? 'abledBtn fadeOut' : 'disaledBtn fadeIn'}`}
               >
                 {checkID && errorDisappear ? '확인완료' : '중복확인'}
               </button>
@@ -73,7 +73,7 @@ export default function LoginJoin() {
         </div>
 
         {clicked ?
-          <div className='inputWrap' onChange={handlePasswordChk}>
+          <div className={`inputWrap ${clicked ? 'moveDown fadeIn' : ''}`} onChange={handlePasswordChk}>
             <input
               type='password'
               name='passwordCheck'
@@ -88,7 +88,7 @@ export default function LoginJoin() {
           : null
         }
 
-        <div className='btnWrap'>
+        <div className={`btnWrap ${clicked ? 'moveDown' : ''}`}>
           {!clicked && loginFail ?
             <p className='errorMsg-not'>아이디 또는 비밀번호를 확인해주세요</p> : null
           }
@@ -109,7 +109,7 @@ export default function LoginJoin() {
 
           <button
             type='button'
-            className='lightGreen-btn size-btn'
+            className={`lightGreen-btn size-btn ${clicked ? '' : 'margin-bottom'}`}
             onClick={handleSignUpButton}
           >
             {clicked ? '로그인 화면' : '회원가입'}

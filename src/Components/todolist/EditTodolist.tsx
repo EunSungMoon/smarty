@@ -4,7 +4,7 @@ import useEdit from '../../Hooks/useEdit'
 import error from "../../models/error";
 
 export default function EditTodolist({ id, title, repeats, importances, clickedrepeat, clickedimportance }: any) {
-  const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleSubmit, handleChange, handleEdit } = useEdit({
+  const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleSubmit, handleEditChange, handleEdit } = useEdit({
     initialValues: {
       title: title,
       repeat: clickedrepeat,
@@ -46,7 +46,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
             type='text'
             name='title'
             defaultValue={title}
-            onChange={handleChange}
+            onChange={handleEditChange}
           />
           {title.length === 0 && <p className='errorMsg-not'>*할일이 입력되지 않았습니다.</p>}
 
@@ -62,7 +62,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
                       value={v.value}
                       className="displayNone"
                       onClick={(e) => handleRadioButton(e, setRepeatDefault)}
-                      onChange={handleChange}
+                      onChange={handleEditChange}
                     />
                     {v.text}
                   </label>
@@ -81,7 +81,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
                       value={v.value}
                       className="displayNone"
                       onClick={(e) => handleRadioButton(e, setImportanceDefault)}
-                      onChange={handleChange}
+                      onChange={handleEditChange}
                     />
                     {v.text}
                   </label>

@@ -25,7 +25,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
 
   let token = `Token ${localStorage.getItem('token')}`
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
     console.log(values)
@@ -73,7 +73,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     Month,
     Day,
     setSubmitting,
-    handleChange,
+    handleEditChange,
     handleSubmit,
     handleEdit
   }
