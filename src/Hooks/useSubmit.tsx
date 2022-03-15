@@ -76,7 +76,11 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
 
   useEffect(() => {
     if (submitting) {
-      handleAxios(Year, Month, Day)
+      if (errors.title === '*할일이 입력되지 않았습니다.') {
+        return
+      } else {
+        handleAxios(Year, Month, Day)
+      }
       onSubmit(values);
     }
     setSubmitting(false)

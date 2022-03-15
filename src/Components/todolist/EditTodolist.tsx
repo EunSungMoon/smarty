@@ -19,8 +19,12 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
 
   useEffect(() => {
     if (submitting) {
+      if (errors.title === '*할일이 입력되지 않았습니다.') {
+        return
+      } else {
+        handleEdit(Year, Month, Day, id)
+      }
       onSubmit(values);
-      handleEdit(Year, Month, Day, id)
     }
     setSubmitting(false)
   }, [errors]);
