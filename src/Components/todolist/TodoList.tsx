@@ -153,7 +153,7 @@ export default function TodoList(props: any) {
                   <div className="buttonWrap">
                     <button
                       type="button"
-                      title='수정하기'
+                      title={clickEditButton && clickedId === list.id ? '닫기' : '수정하기'}
                       className="margin-right5px editBtn"
                       onClick={() => handleEditButton(list.id)}
                     >
