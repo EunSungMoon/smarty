@@ -1,5 +1,5 @@
 import { HiOutlinePencilAlt, HiPlus, HiX } from "react-icons/hi";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -17,11 +17,12 @@ export default function TodoList(props: any) {
     { value: '1', text: '매주' }
   ]
 
+  const [test, setTest] = useState({})
   const [checkedList, setCheckedLists] = useState<any>([]);
   const [repeatDefault, setRepeatDefault] = useState(repeats[0].value);
   const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
   const [clickEditButton, setClickEditButton] = useState(false);
-  const [clickedId, setClickedId] = useState('');
+  const [clickedId, setClickedId] = useState<string>('');
 
   const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete, } = useSubmit({
     initialValues: {
@@ -33,7 +34,7 @@ export default function TodoList(props: any) {
     error
   });
 
-  const { handleEditChange, handleEdit } = useEdit({
+  const { handleEditChange, handleEditSubmit, handleEdit, } = useEdit({
     initialValues: {
       title: values.title,
       repeat: values.repeat,
@@ -54,18 +55,16 @@ export default function TodoList(props: any) {
     }
   };
 
-  const onCheckedElement = (checked: boolean, list: string) => {
+  const onCheckedElement = (checked: boolean, list: string, e: React.ChangeEvent<HTMLInputElement>) => {
     checked ?
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list));
-
-    console.log([...checkedList].includes(list))
-    if (checkedList)
-      return handleEditChange
+    // handleEditChange(e)
+    setTest(props.lists)
   };
 
   const handleEditButton = (xId: string) => {
-    setClickEditButton(true);
+    setClickEditButton(!clickEditButton);
     setClickedId(xId)
   }
 
@@ -133,23 +132,43 @@ export default function TodoList(props: any) {
         {
           props.lists.map((list: any) => (
             <React.Fragment key={list.id}>
-              <form className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`}>
+              <form
+                className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`} onSubmit={handleEditSubmit}>
                 <div className="todolist container">
-                  <label
-                    className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`}
-                  >
-                    <input
-                      type='checkbox'
-                      value={list.importance}
-                      className="displayNone"
-                      onChange={(e) => onCheckedElement(e.target.checked, list)}
-                      defaultChecked={checkedList.includes(list) ? true : false}
-                    />
-                  </label>
+                  <button className="test" type="button" >
+                    <label
+                      className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`}
+                      defaultValue={list.title}
+                    >
+                      <input
+                        type='checkbox'
+                        name="importance"
+                        value='3'
+                        className="displayNone"
+                        onChange={(e) => onCheckedElement(e.target.checked, list, e)}
+                        defaultChecked={checkedList.includes(list) ? true : false}
+                      />
+
+                    </label>
+                  </button>
                   <p className="margin0px title">{list.title}</p>
                   <div className="buttonWrap">
-                    <button type="button" title='수정하기' className="margin-right5px editBtn" onClick={() => handleEditButton(list.id)}><HiOutlinePencilAlt /></button>
-                    <button type="button" title='삭제하기' className="editBtn" onClick={() => handleDelete(Year, Month, Day, list.id)}><HiX /></button>
+                    <button
+                      type="button"
+                      title='수정하기'
+                      className="margin-right5px editBtn"
+                      onClick={() => handleEditButton(list.id)}
+                    >
+                      <HiOutlinePencilAlt />
+                    </button>
+                    <button
+                      type="button"
+                      title='삭제하기'
+                      className="editBtn"
+                      onClick={() => handleDelete(Year, Month, Day, list.id)}
+                    >
+                      <HiX />
+                    </button>
                   </div>
                 </div>
               </form>

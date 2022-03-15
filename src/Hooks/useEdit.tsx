@@ -13,7 +13,7 @@ export interface initValues {
   error?: any;
 }
 
-export default function useSubmit({ initialValues, onSubmit, error }: initValues) {
+export default function useEdit({ initialValues, onSubmit, error }: initValues) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
@@ -31,7 +31,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     console.log(values)
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setSubmitting(true);
     e.preventDefault();
     await new Promise(r => setTimeout(r, 1000));
@@ -39,7 +39,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   };
 
   //수정하기
-  const handleEdit = async (xYear: number, xMonth: number, xDate: number, xId: number) => {
+  const handleEdit = async (xYear: number, xMonth: number, xDate: number, xId: string) => {
     try {
       const loadAxios = await axios.put(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
         {
@@ -57,6 +57,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
       if (loadAxios.status === 200) {
         window.location.replace('/todolist');
       }
+
       console.log(loadAxios)
     }
     catch (error) {
@@ -74,7 +75,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
     Day,
     setSubmitting,
     handleEditChange,
-    handleSubmit,
+    handleEditSubmit,
     handleEdit
   }
 }

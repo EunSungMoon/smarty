@@ -4,7 +4,7 @@ import useEdit from '../../Hooks/useEdit'
 import error from "../../models/error";
 
 export default function EditTodolist({ id, title, repeats, importances, clickedrepeat, clickedimportance, animation }: any) {
-  const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleSubmit, handleEditChange, handleEdit } = useEdit({
+  const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleEditSubmit, handleEditChange, handleEdit } = useEdit({
     initialValues: {
       title: title,
       repeat: clickedrepeat,
@@ -36,10 +36,8 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
     }
   };
 
-  console.log(clickedimportance)
-
   return (
-    <form className={`editTodolistWrap ${animation ? 'fadeIn' : ''}`} onSubmit={handleSubmit}>
+    <form className={`editTodolistWrap ${animation ? 'fadeIn' : ''}`} onSubmit={handleEditSubmit}>
       <div className="todolist container flex-start">
         <div className="todolistForm container">
           <input

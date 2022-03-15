@@ -129,11 +129,17 @@
   .fadeIn {
     position: relative;
     animation-name: fadeIn;
-    animation-duration: 3s;
+    animation-duration: 1s;
   }
   .moveUp {
     position: relative;
     animation-name: moveUp;
-    animation-duration: 3s;
+    animation-duration: 1s;
   }
+}
+
+.test{
+  background: none;
+  border: none;
+  padding: 0;
 }

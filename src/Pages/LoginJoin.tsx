@@ -20,10 +20,6 @@ export default function LoginJoin() {
     setPasswordCheck(e.target.value);
   };
 
-  const handleSignUpButton = () => {
-    setclicked(!clicked);
-  }
-
   return (
     <div className='loginWrap'>
       <div className='logoWrap'>
@@ -111,7 +107,7 @@ export default function LoginJoin() {
           <button
             type='button'
             className={`lightGreen-btn size-btn ${clicked ? '' : 'margin-bottom'}`}
-            onClick={handleSignUpButton}
+            onClick={() => setclicked(!clicked)}
           >
             {clicked ? '로그인 화면' : '회원가입'}
           </button>
