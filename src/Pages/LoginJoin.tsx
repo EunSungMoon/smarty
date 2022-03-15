@@ -40,11 +40,11 @@ export default function LoginJoin() {
             onChange={handleChange}
           />
           {clicked ?
-            <div className='userCheck' onChange={changeBtnName}>
+            <div className={`userCheck ${clicked ? 'fadeIn' : ''}`} onChange={changeBtnName}>
               <button
                 type='button'
                 onClick={handleCheckID}
-                className={`uesrCheckBtn ${checkID && errorDisappear ? 'abledBtn fadeOut' : 'disaledBtn fadeIn'}`}
+                className={`uesrCheckBtn ${checkID && errorDisappear ? 'abledBtn' : 'disaledBtn'}`}
               >
                 {checkID && errorDisappear ? '확인완료' : '중복확인'}
               </button>
@@ -84,9 +84,10 @@ export default function LoginJoin() {
             {errors.passwordCheck && <p className='errorMsg-not'>{errors.passwordCheck}</p>}
             {noMatchPassword && <p className='errorMsg-not'>*비밀번호가 일치하지 않습니다.</p>}
             <p className='passwordInfo'>비밀번호는 8개 이상의 영문자/숫자/특수문자를 사용합니다.</p>
-          </div>
-          : null
+          </div> : null
         }
+
+
 
         <div className={`btnWrap ${clicked ? 'moveDown' : ''}`}>
           {!clicked && loginFail ?

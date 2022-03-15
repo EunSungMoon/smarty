@@ -59,9 +59,9 @@ export default function TodoList(props: any) {
       setCheckedLists([...checkedList, list]) :
       setCheckedLists(checkedList.filter((el: string) => el !== list));
 
-      console.log([...checkedList].includes(list))
-      if(checkedList)
-    return handleEditChange
+    console.log([...checkedList].includes(list))
+    if (checkedList)
+      return handleEditChange
   };
 
   const handleEditButton = (xId: string) => {
@@ -161,6 +161,7 @@ export default function TodoList(props: any) {
                   importances={importances}
                   clickedrepeat={list.repeat}
                   clickedimportance={list.importance}
+                  animation={clickEditButton}
                 />
                 : null}
             </React.Fragment>

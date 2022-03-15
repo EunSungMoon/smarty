@@ -3,7 +3,7 @@ import { HiOutlinePencilAlt } from "react-icons/hi";
 import useEdit from '../../Hooks/useEdit'
 import error from "../../models/error";
 
-export default function EditTodolist({ id, title, repeats, importances, clickedrepeat, clickedimportance }: any) {
+export default function EditTodolist({ id, title, repeats, importances, clickedrepeat, clickedimportance, animation }: any) {
   const { submitting, onSubmit, Year, Month, Day, values, errors, setSubmitting, handleSubmit, handleEditChange, handleEdit } = useEdit({
     initialValues: {
       title: title,
@@ -39,7 +39,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
   console.log(clickedimportance)
 
   return (
-    <form className="editTodolistWrap" onSubmit={handleSubmit}>
+    <form className={`editTodolistWrap ${animation ? 'fadeIn' : ''}`} onSubmit={handleSubmit}>
       <div className="todolist container flex-start">
         <div className="todolistForm container">
           <input

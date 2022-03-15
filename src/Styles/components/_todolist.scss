@@ -1,3 +1,22 @@
+@keyframes moveUp {
+  /* keyframe */
+  from {
+    top: 0;
+  }
+  /* keyframe */
+  to {
+    top: 0;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 #todolist {
   padding: 40px 0;
   .flex-start {
@@ -91,13 +110,13 @@
             background: $lightGray-color;
           }
           .checkedRadio {
-            &-0{
+            &-0 {
               background: $yellow-color;
             }
-            &-1{
+            &-1 {
               background: $lightGreen-color;
             }
-            &-2{
+            &-2 {
               background: $red-color;
             }
             background: $gray-color;
@@ -105,5 +124,16 @@
         }
       }
     }
+  }
+
+  .fadeIn {
+    position: relative;
+    animation-name: fadeIn;
+    animation-duration: 3s;
+  }
+  .moveUp {
+    position: relative;
+    animation-name: moveUp;
+    animation-duration: 3s;
   }
 }
