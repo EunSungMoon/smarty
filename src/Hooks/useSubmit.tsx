@@ -20,9 +20,9 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const [submitting, setSubmitting] = useState(false);
   const dayjs = require('dayjs');
   const today = dayjs();
-  const Year = today.year();
-  const Month = today.add(1, 'month').month()
-  const Day = today.date()
+  const Year = today.format('YYYY')
+  const Month = today.format('MM')
+  const Day = today.format('DD')
 
   let token = `Token ${localStorage.getItem('token')}`
 

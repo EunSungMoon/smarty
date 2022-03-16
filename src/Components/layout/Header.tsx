@@ -15,7 +15,6 @@ export default function Header() {
           <button type='button' className='logoutBtn' onClick={handleLogout}>로그아웃</button>
         </div>
       </header>
-      <section id='monthWrap'></section>
     </>
   )
 }

@@ -1,9 +1,11 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
 @keyframes moveUp {
-  /* keyframe */
   from {
     top: 0;
   }
-  /* keyframe */
   to {
     top: 0;
   }
@@ -25,6 +27,7 @@
   .todolistWrap {
     margin-bottom: 21px;
     flex-flow: row wrap;
+    margin-right: 3%;
     .title {
       font-family: "NanumSquareBold";
       font-size: 21px;
@@ -35,7 +38,7 @@
     @include display(space-between, baseline);
     padding: 0;
     .title {
-      width: 88%;
+      width: 81%;
     }
     .editBtn {
       border: 2px solid $gray-color;
@@ -45,6 +48,11 @@
         background: $gray-color;
         color: $white-color;
       }
+    }
+    .checkboxBtn {
+      background: none;
+      border: none;
+      padding: 0;
     }
   }
   .margin-right {
@@ -74,12 +82,13 @@
     background-position-y: center;
   }
 
-  .editTodolistWrap {
+  .newTodolistWrap {
     display: flex;
     justify-content: flex-start;
     .todolist {
       border: 1px solid $gray-color;
       padding: 15px;
+      margin-right: 3%;
       .todolistForm {
         padding: 0;
         input {
@@ -125,6 +134,10 @@
       }
     }
   }
+  .editForm {
+    width: 94%;
+    margin-left: 6%;
+  }
 
   .fadeIn {
     position: relative;
@@ -138,8 +151,19 @@
   }
 }
 
-.test{
-  background: none;
-  border: none;
-  padding: 0;
+/**********************************************************
+
+반응형
+
+***********************************************************/
+@media (min-width: 250px) {
+}
+
+@include media-breakpoint-up(sm) {
+}
+
+@include media-breakpoint-up(md) {
+}
+@include media-breakpoint-up(lg) {
+  
 }

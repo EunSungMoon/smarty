@@ -1,3 +1,7 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
 #calendar {
   padding: 40px 0;
   .currentDate {
@@ -25,23 +29,17 @@
   }
   .calendarWrap {
     text-align: center;
-    margin: 20px;
-    margin-top: 40px;
     .oneweek {
       @include display(space-between, center);
       cursor: pointer;
       width: 100%;
     }
     .dayofWeek {
-      height: 40px;
-      line-height: 50px;
+      height: 20px;
       border-bottom: 1px solid #e8e8e8;
     }
     .box {
-      width: 32px;
-      height: 32px;
       padding: 6px 6px;
-      font-size: 14px;
       box-sizing: initial;
       border-right: 1px solid $lightGray-color;
       border-bottom: 1px solid $lightGray-color;
@@ -54,12 +52,8 @@
       .day {
         position: relative;
         @include display(center, center);
-        width: 32px;
-        height: 32px;
       }
       .selected {
-        width: 32px;
-        height: 32px;
         border-radius: 50%;
         background: $lightGreen-color;
         opacity: 0.5;
@@ -102,6 +96,109 @@
     }
     .borderRightnone {
       border-right: none;
+    }
+  }
+  .viewMonth {
+    width: 60px;
+    height: 20px;
+    font-size: 12px;
+    background: $lightGray-color;
+    color: $white-color;
+    border: none;
+    font-family: "NanumSquareBold";
+  }
+}
+
+/**********************************************************
+
+반응형
+
+***********************************************************/
+@media (min-width: 250px) {
+  #calendar {
+    .calendarWrap {
+      margin: 40px 0 20px;
+      .box {
+        width: 40px;
+        height: 34px;
+        font-size: 14px;
+        .selected{
+          width: 24px;
+          height: 24px;
+        }
+        .day{
+          width: 24px;
+          height: 22px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  #calendar {
+    .calendarWrap {
+      .box {
+        width: 64px;
+        height: 45px;
+        font-size: 16px;
+        .selected{
+          width: 30px;
+          height: 30px;
+        }
+        .day{
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  #calendar {
+    .calendarWrap {
+      .box {
+        width: 85px;
+        height: 62px;
+        font-size: 21px;
+        .selected{
+          width: 32px;
+          height: 32px;
+        }
+        .day{
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+  }
+}
+@include media-breakpoint-up(lg) {
+  #calendar {
+    .calendarWrap {
+      .box {
+        width: 100px;
+      }
+    }
+  }
+}
+@include media-breakpoint-up(xl) {
+  #calendar {
+    margin-right: 0px;
+    .calendarWrap {
+    }
+  }
+}
+@include media-breakpoint-up(xxl) {
+  #calendar {
+    margin-right: 48px;
+    .calendarWrap {
+      margin: 20px;
+      margin-top: 40px;
+      .box {
+        width: 85px;
+      }
     }
   }
 }

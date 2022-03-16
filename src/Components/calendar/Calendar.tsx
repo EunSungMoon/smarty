@@ -20,11 +20,11 @@ export default function Calendar() {
   dayjs.extend(isoWeek);
   dayjs.extend(weekOfYear);
 
-  const month = viewDate.add(1, 'month');
-  const currentMonth = month.month();
-  const currentYear = month.year();
+  const currentMonth = viewDate.format('MM');
+  const currentYear = viewDate.format('YYYY')
 
   const [selectDate, setSelectDate] = useState(today);
+  const [dateline, setDateline] = useState(true);
 
   const createCalendar = () => {
     const startWeek = viewDate.startOf('month').week();
@@ -65,6 +65,7 @@ export default function Calendar() {
   }
 
   useEffect(() => {
+    setDateline(true)
     loadCalendarAxios(currentYear, currentMonth)
     return lists
   }, [viewDate]);
@@ -79,9 +80,10 @@ export default function Calendar() {
     return loadCalendarAxios(currentYear, currentMonth);
   }
 
-  const handleLoadDayData = (currentDate: number, c: number) => {
+  const handleLoadDayData = (currentDate: number, t: number) => {
+    setDateline(false)
     loadDayAxios(currentYear, currentMonth, currentDate)
-    setSelectDate(c)
+    setSelectDate(t)
   }
 
   if (loading) return <div>로딩중...</div>
@@ -93,14 +95,41 @@ export default function Calendar() {
       <section id="calendar">
         <div className="currentDate">
           <div className="currentYear">
-            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'subtract', 'year')}><GoTriangleLeft /></button>
+            <button
+              className='arrowbtn'
+              type="button"
+              onClick={() => handleArrowBtn(viewDate, 'subtract', 'year')}
+            >
+              <GoTriangleLeft />
+            </button>
             <span className="thisMonth">{viewDate.format('YYYY')}년</span>
-            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'add', 'year')}><GoTriangleRight /></button>
+            <button
+              className='arrowbtn'
+              type="button"
+              onClick={() => handleArrowBtn(viewDate, 'add', 'year')}
+            >
+              <GoTriangleRight />
+            </button>
           </div>
+
           <div className="currentMonth">
-            <button className=' arrowbtn' onClick={() => handleArrowBtn(viewDate, 'subtract', 'month')}><GoTriangleLeft /></button>
+            <button
+              className='arrowbtn'
+              type="button"
+              onClick={() => handleArrowBtn(viewDate, 'subtract', 'month')}
+            >
+              <GoTriangleLeft />
+            </button>
             <span className="thisMonth">{viewDate.format("MM")}월</span>
-            <button className='arrowbtn' onClick={() => handleArrowBtn(viewDate, 'add', 'month')}><GoTriangleRight /></button>
+            <button
+              className='arrowbtn'
+              type="button"
+              onClick={() => handleArrowBtn(viewDate, 'add', 'month')}
+            >
+              <GoTriangleRight />
+            </button>
+
+            <button type="button" className="viewMonth" onClick={() => loadCalendarAxios(currentYear, currentMonth)}>월별보기</button>
           </div>
         </div>
 
@@ -115,7 +144,7 @@ export default function Calendar() {
           {createCalendar()}
         </div>
       </section >
-      <TodoList lists={lists} />
+      <TodoList lists={lists} dateline={dateline} />
     </>
   )
 }

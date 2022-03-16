@@ -68,8 +68,8 @@ export default function TodoList(props: any) {
 
   return (
     <section id='todolist' className="container">
-      <Scrollbars style={{ height: 600 }}>
-        <form className="editTodolistWrap" onSubmit={handleSubmit}>
+      <Scrollbars style={{ height: 1000 }} className='customScroll'>
+        <form className="newTodolistWrap" onSubmit={handleSubmit}>
           <input type='checkbox' id='importance' className="displayNone" />
           <label htmlFor='importance' className='importance importance-3'></label>
           <div className="todolist container flex-start">
@@ -127,13 +127,17 @@ export default function TodoList(props: any) {
             </div>
           </div>
         </form>
+        {props.dateline ? <div>{props.lists.date}</div> : null}
         {
           props.lists.map((list: any) => (
             <React.Fragment key={list.id}>
+              {/* {props.dateline ? <div>{list.date}</div> : null} */}
               <form
-                className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`} onSubmit={handleEditSubmit}>
+                className={`todolistWrap flex-start ${checkedList.includes(list) ? 'checkedbox' : ''}`}
+                onSubmit={handleEditSubmit}
+              >
                 <div className="todolist container">
-                  <button className="test" type="button" >
+                  <button className="checkboxBtn" type="button" >
                     <label
                       className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`}
                       defaultValue={list.title}
@@ -181,6 +185,7 @@ export default function TodoList(props: any) {
                   animation={clickEditButton}
                 />
                 : null}
+
             </React.Fragment>
           ))
         }

@@ -1,3 +1,36 @@
-#calendarWrap{
-  @include display(space-between, flex-start);
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+#calendarWrap {
+  min-height: 84.5vh;
+}
+
+/**********************************************************
+
+반응형
+
+***********************************************************/
+@media (min-width: 250px) {
+}
+
+@include media-breakpoint-up(sm) {
+}
+
+@include media-breakpoint-up(md) {
+}
+@include media-breakpoint-up(lg) {
+}
+@include media-breakpoint-up(xl) {
+  #calendarWrap {
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@include media-breakpoint-up(xxl) {
+  #calendarWrap {
+    @include display(space-between, flex-start);
+    flex-flow: initial;
+  }
 }

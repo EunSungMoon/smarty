@@ -41,7 +41,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
   };
 
   return (
-    <form className={`editTodolistWrap ${animation ? 'fadeIn' : ''}`} onSubmit={handleEditSubmit}>
+    <form className={`newTodolistWrap editForm ${animation ? 'fadeIn' : ''}`} onSubmit={handleEditSubmit}>
       <div className="todolist container flex-start">
         <div className="todolistForm container">
           <input
