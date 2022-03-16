@@ -52,7 +52,7 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
           />
           {title.length === 0 && <p className='errorMsg-not'>*할일이 입력되지 않았습니다.</p>}
 
-          <div className="flex-start">
+          <div className="flex-start flex-flow">
             <div className="flex-start repeatWrap">
               <p className="margin0px selectTitle box">반복</p>
               {repeats.map((v: any) => (

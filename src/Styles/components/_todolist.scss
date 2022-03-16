@@ -34,7 +34,6 @@
     }
   }
   .todolist {
-    @include display(space-between, baseline);
     padding: 0;
     .title {
       width: 81%;
@@ -131,10 +130,6 @@
       }
     }
   }
-  .editForm {
-    width: 94%;
-    margin-left: 6%;
-  }
 
   .fadeIn {
     position: relative;
@@ -159,6 +154,7 @@
     .todolistWrap {
       margin-right: 3%;
       .todolist {
+        @include display(flex-start, baseline);
         .title {
           width: 69%;
         }
@@ -167,18 +163,28 @@
 
     .newTodolistWrap {
       .todolist {
-        width: 330px;
-        margin-right: 3%;
         .todolistForm {
-          width: 270px;
-          .repeatWrap {
-            margin-right: 21px;
+          width: 87%;
+          .flex-flow {
+            flex-flow: column;
+            .repeatWrap {
+              margin-right: 21px;
+            }
           }
         }
       }
+      .width {
+        width: 86%;
+        margin-right: 3%;
+        margin-left: 0;
+      }
     }
     .importance {
-      margin-right: 0;
+      margin-right: 10px;
+    }
+    .editForm {
+      width: 86%;
+      margin-left: 8%;
     }
   }
 }
@@ -187,25 +193,35 @@
   #todolist {
     .todolistWrap {
       .todolist {
+        @include display(space-around, baseline);
         .title {
-          width: 77%;
+          width: 78%;
         }
       }
     }
 
     .newTodolistWrap {
       .todolist {
-        width: 100%;
         .todolistForm {
           width: 100%;
-          .repeatWrap {
-            margin-right: 50px;
+          .flex-flow {
+            flex-flow: initial;
+            .repeatWrap {
+              margin-right: 50px;
+            }
           }
         }
+      }
+      .width {
+        width: 100%;
       }
     }
     .importance {
       margin-right: 20px;
+    }
+    .editForm {
+      width: 90%;
+      margin-left: 7%;
     }
   }
 }
@@ -215,9 +231,13 @@
     .todolistWrap {
       .todolist {
         .title {
-          width: 82%;
+          width: 81%;
         }
       }
+    }
+    .editForm {
+      width: 91%;
+      margin-left: 6%;
     }
   }
 }
@@ -231,6 +251,10 @@
       }
     }
   }
+  .editForm {
+    width: 92%;
+    margin-left: 5%;
+  }
 }
 @include media-breakpoint-up(xxl) {
   #todolist {
@@ -241,6 +265,10 @@
           width: 81%;
         }
       }
+    }
+    .editForm {
+      width: 91%;
+      margin-left: 6%;
     }
   }
 }

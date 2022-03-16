@@ -72,7 +72,7 @@ export default function TodoList(props: any) {
         <form className="newTodolistWrap" onSubmit={handleSubmit}>
           <input type='checkbox' id='importance' className="displayNone" />
           <label htmlFor='importance' className='importance importance-3'></label>
-          <div className="todolist container flex-start">
+          <div className="todolist container flex-start width">
             <div className="todolistForm container">
               <input
                 type='text'
@@ -82,7 +82,7 @@ export default function TodoList(props: any) {
               />
               {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
 
-              <div className="flex-start">
+              <div className="flex-start flex-flow">
                 <div className="flex-start repeatWrap">
                   <p className="margin0px selectTitle box">반복</p>
                   {repeats.map((v: any) => (
