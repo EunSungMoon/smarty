@@ -1,10 +1,10 @@
 import { HiOutlinePencilAlt, HiPlus, HiX, HiOutlineTrash } from "react-icons/hi";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from 'react-custom-scrollbars';
 import EditTodolist from "./EditTodolist";
-import useEdit from '../../Hooks/useEdit'
+import useCheck from '../../Hooks/useCheck'
 
 export default function TodoList(props: any) {
   const importances = [
@@ -17,31 +17,30 @@ export default function TodoList(props: any) {
     { value: '1', text: '매주' }
   ]
 
-  const [checkedList, setCheckedLists] = useState<any>([]);
   const [repeatDefault, setRepeatDefault] = useState(repeats[0].value);
   const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
   const [clickEditButton, setClickEditButton] = useState(false);
   const [clickedId, setClickedId] = useState<string>('');
+  const [clickComplete, setClickComplete] = useState(false);
 
   const { Year, Month, Day, values, errors, handleSubmit, handleChange, handleDelete, } = useSubmit({
     initialValues: {
       title: '',
       repeat: '0',
-      importance: '0'
+      importance: '0',
+      done: '0'
     },
     onSubmit: () => { },
     error
   });
 
-  const { handleEditChange, handleEditSubmit, handleEdit, } = useEdit({
+  const { handleCheckAxios, handleCheckSubmit, handleCheckChange, } = useCheck({
     initialValues: {
-      title: values.title,
-      repeat: values.repeat,
-      importance: values.importance
+      done: values.done
     },
     onSubmit: () => { },
     error
-  })
+  });
 
   const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
     setFirst((e.target as HTMLInputElement).value);
@@ -54,17 +53,11 @@ export default function TodoList(props: any) {
     }
   };
 
-  const onCheckedElement = (checked: boolean, list: string, e: React.ChangeEvent<HTMLInputElement>) => {
-    checked ?
-      setCheckedLists([...checkedList, list]) :
-      setCheckedLists(checkedList.filter((el: string) => el !== list));
-    // handleEditChange(e)
-  };
-
   const handleEditButton = (xId: string) => {
     setClickEditButton(!clickEditButton);
     setClickedId(xId)
   }
+  console.log(clickComplete)
 
   return (
     <section id='todolist' className="container">
@@ -131,24 +124,25 @@ export default function TodoList(props: any) {
         {
           props.lists.map((list: any) => (
             <React.Fragment key={list.id}>
-              {/* {props.dateline ? <div>{list.date}</div> : null} */}
+              {props.dateline ? <div>{list.date}</div> : null}
               <form
-                className={`todolistWrap ${checkedList.includes(list) ? 'checkedbox' : ''}`}
-                onSubmit={handleEditSubmit}
+                className={`todolistWrap`}
+                onSubmit={handleCheckSubmit}
               >
                 <div className="todolist container">
-                  <button className="checkboxBtn" type="button" >
+                  {/* 컴포넌트 분리 */}
+                  <button className="checkboxBtn" type="button" onClick={() => handleCheckAxios(Year, Month, Day, list.id)}>
                     <label
-                      className={`importance importance-${checkedList.includes(list) ? '3' : `${list.importance}`}`}
+                      className={`importance importance-${list.importance} ${list.done}`}
                       defaultValue={list.title}
                     >
                       <input
                         type='checkbox'
-                        name="importance"
-                        value='3'
+                        name="done"
+                        value={clickComplete ? '1' : '0'}
                         className="displayNone"
-                        onChange={(e) => onCheckedElement(e.target.checked, list, e)}
-                        defaultChecked={checkedList.includes(list) ? true : false}
+                        onChange={handleCheckChange}
+                        onClick={() => setClickComplete(!clickComplete)}
                       />
 
                     </label>

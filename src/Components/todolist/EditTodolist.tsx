@@ -8,7 +8,8 @@ export default function EditTodolist({ id, title, repeats, importances, clickedr
     initialValues: {
       title: title,
       repeat: clickedrepeat,
-      importance: clickedimportance
+      importance: clickedimportance,
+      done:'0'
     },
     onSubmit: () => { },
     error

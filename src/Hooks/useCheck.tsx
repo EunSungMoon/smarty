@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 export interface todolistType {
-  title: string;
-  repeat: string;
-  importance: string;
-  done:string
+  done: string;
 }
 
 export interface initValues {
@@ -14,7 +11,8 @@ export interface initValues {
   error?: any;
 }
 
-export default function useEdit({ initialValues, onSubmit, error }: initValues) {
+export default function useCheck({ initialValues, onSubmit, error }: initValues) {
+  // const { id } = useParams<any>();
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
@@ -26,13 +24,13 @@ export default function useEdit({ initialValues, onSubmit, error }: initValues) 
 
   let token = `Token ${localStorage.getItem('token')}`
 
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
     console.log(values)
   };
 
-  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCheckSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     setSubmitting(true);
     e.preventDefault();
     await new Promise(r => setTimeout(r, 1000));
@@ -40,15 +38,11 @@ export default function useEdit({ initialValues, onSubmit, error }: initValues) 
   };
 
   //수정하기
-  const handleEdit = async (xYear: number, xMonth: number, xDate: number, xId: string) => {
+  const handleCheckAxios = async (xYear: number, xMonth: number, xDate: number, xId: string) => {
     try {
-      const loadAxios = await axios.put(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
+      const loadAxios = await axios.put(`http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/only`,
         {
-          title: values.title,
-          repeat: values.repeat,
-          importance: values.importance,
-          done:values.done,
-          date: `${xYear}-${xMonth}-${xDate}`
+          done: values.done,
         },
         {
           headers: {
@@ -56,10 +50,9 @@ export default function useEdit({ initialValues, onSubmit, error }: initValues) 
             'Authorization': token
           }
         })
-      if (loadAxios.status === 200) {
-        window.location.replace('/todolist');
-      }
-
+      // if (loadAxios.status === 200) {
+      //   window.location.replace('/todolist');
+      // }
       console.log(loadAxios)
     }
     catch (error) {
@@ -67,17 +60,24 @@ export default function useEdit({ initialValues, onSubmit, error }: initValues) 
     }
   }
 
+  useEffect(() => {
+    if (submitting) {
+      onSubmit(values);
+    }
+    setSubmitting(false)
+  }, [errors]);
+
   return {
     values,
     errors,
     submitting,
-    onSubmit,
     Year,
     Month,
     Day,
+    onSubmit,
     setSubmitting,
-    handleEditChange,
-    handleEditSubmit,
-    handleEdit
+    handleCheckAxios,
+    handleCheckSubmit,
+    handleCheckChange
   }
 }

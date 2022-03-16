@@ -5,6 +5,7 @@ export interface todolistType {
   title: string;
   repeat: string;
   importance: string;
+  done: string;
 }
 
 export interface initValues {
@@ -57,6 +58,7 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
           title: values.title,
           repeat: values.repeat,
           importance: values.importance,
+          done: values.done,
           date: `${xYear}-${xMonth}-${xDate}`
         },
         {
