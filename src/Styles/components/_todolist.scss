@@ -20,14 +20,13 @@
 }
 
 #todolist {
-  padding: 40px 0;
   .flex-start {
     @include display(flex-start, baseline);
   }
   .todolistWrap {
+    @include display(flex-start, center);
     margin-bottom: 21px;
     flex-flow: row wrap;
-    margin-right: 3%;
     .title {
       font-family: "NanumSquareBold";
       font-size: 21px;
@@ -62,7 +61,6 @@
     width: 20px;
     height: 20px;
     border: 2px solid;
-    margin-right: 20px;
 
     &-0 {
       border-color: $yellow-color;
@@ -85,19 +83,18 @@
   .newTodolistWrap {
     display: flex;
     justify-content: flex-start;
+    margin-bottom: 21px;
     .todolist {
       border: 1px solid $gray-color;
       padding: 15px;
-      margin-right: 3%;
       .todolistForm {
         padding: 0;
         input {
           width: 95%;
           border: none;
           margin-bottom: 5px;
-        }
-        .repeatWrap {
-          margin-right: 50px;
+          font-size: 21px;
+          font-family: "NanumSquareBold";
         }
         .box {
           height: 20px;
@@ -158,27 +155,92 @@
 ***********************************************************/
 @media (min-width: 250px) {
   #todolist {
+    padding: 20px 0 123px;
+    .todolistWrap {
+      margin-right: 3%;
+      .todolist {
+        .title {
+          width: 69%;
+        }
+      }
+    }
+
+    .newTodolistWrap {
+      .todolist {
+        width: 330px;
+        margin-right: 3%;
+        .todolistForm {
+          width: 270px;
+          .repeatWrap {
+            margin-right: 21px;
+          }
+        }
+      }
+    }
+    .importance {
+      margin-right: 0;
+    }
   }
 }
 
 @include media-breakpoint-up(sm) {
   #todolist {
+    .todolistWrap {
+      .todolist {
+        .title {
+          width: 77%;
+        }
+      }
+    }
+
+    .newTodolistWrap {
+      .todolist {
+        width: 100%;
+        .todolistForm {
+          width: 100%;
+          .repeatWrap {
+            margin-right: 50px;
+          }
+        }
+      }
+    }
+    .importance {
+      margin-right: 20px;
+    }
   }
 }
 
 @include media-breakpoint-up(md) {
   #todolist {
+    .todolistWrap {
+      .todolist {
+        .title {
+          width: 82%;
+        }
+      }
+    }
   }
 }
 @include media-breakpoint-up(lg) {
   #todolist {
-  }
-}
-@include media-breakpoint-up(xl) {
-  #todolist {
+    .todolistWrap {
+      .todolist {
+        .title {
+          width: 86%;
+        }
+      }
+    }
   }
 }
 @include media-breakpoint-up(xxl) {
   #todolist {
+    padding: 123px 0;
+    .todolistWrap {
+      .todolist {
+        .title {
+          width: 81%;
+        }
+      }
+    }
   }
 }

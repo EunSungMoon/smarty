@@ -3,7 +3,6 @@
 @import "~bootstrap/scss/mixins";
 
 #calendar {
-  padding: 123px 0;
   .currentDate {
     @include display(center, center);
     flex-direction: column;
@@ -116,6 +115,7 @@
 ***********************************************************/
 @media (min-width: 250px) {
   #calendar {
+    padding: 48px 0 20px;
     .calendarWrap {
       margin: 60px 0 20px;
       .box {
@@ -186,11 +186,13 @@
 @include media-breakpoint-up(xl) {
   #calendar {
     margin-right: 0px;
+
   }
 }
 @include media-breakpoint-up(xxl) {
   #calendar {
     margin-right: 48px;
+    padding: 123px 0;
     .calendarWrap {
       margin: 20px;
       margin-top: 60px;
