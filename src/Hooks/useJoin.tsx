@@ -90,7 +90,6 @@ export default function useJoin({ initialValues, onSubmit, validate }: initValue
             'Content-Type': 'application/json',
           }
         })
-      console.log(loadAxios)
       if (loadAxios.status === 200) {
         setLoginFail(false)
         localStorage.setItem('token', loadAxios.data.token)

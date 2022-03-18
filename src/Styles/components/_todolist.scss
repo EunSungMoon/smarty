@@ -32,6 +32,9 @@
       font-size: 21px;
       letter-spacing: 2px;
     }
+    .grayColor{
+      color: $gray-color;
+    }
   }
   .todolist {
     padding: 0;
@@ -70,9 +73,9 @@
     &-2 {
       border-color: $red-color;
     }
-    &-3 {
-      border-color: $gray-color;
-    }
+  }
+  .grayBox {
+    border-color: $gray-color;
   }
   .checkedbox {
     background: url("../images/complete.png") no-repeat;

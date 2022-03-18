@@ -30,7 +30,6 @@ export default function useSubmit({ initialValues, onSubmit, error }: initValues
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(values)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
