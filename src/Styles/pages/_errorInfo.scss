@@ -1,0 +1,25 @@
+.errorInfo {
+  @include display(center, center);
+  flex-direction: column;
+  min-height: 90.5vh;
+  font-size: 23px;
+  font-family: "NanumSquareBold";
+  img {
+    width: 325px;
+  }
+  .errorMsg {
+    margin: 38px 0 46px;
+    color: $gray-color;
+    font-size: 23px;
+  }
+  .gotoLogin {
+    background: $gray-color;
+    width: 325px;
+    height: 80px;
+    border: none;
+    a {
+      color: $white-color;
+      text-decoration: none;
+    }
+  }
+}

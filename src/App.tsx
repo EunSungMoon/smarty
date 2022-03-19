@@ -5,6 +5,7 @@ import Header from './Components/layout/Header';
 import Footer from './Components/layout/Footer';
 import LoginJoin from './Pages/LoginJoin';
 import Board from './Components/layout/Board';
+import ErrorInfo from './Pages/ErrorInfo';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
                     <Board />
                   </Route>
                 </>
-                : <p>잘못된 접근입니다. 다시 돌아가주세요</p>
+                : <ErrorInfo />
               }
             </>
           </Switch>
