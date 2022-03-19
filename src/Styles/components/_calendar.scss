@@ -13,6 +13,7 @@
     }
     .currentMonth {
       @include display(center, center);
+      margin-left: 80px;
     }
     .thisMonth {
       font-weight: 700;
@@ -105,6 +106,7 @@
     color: $white-color;
     border: none;
     font-family: "NanumSquareBold";
+    margin-left: 20px;
   }
 }
 

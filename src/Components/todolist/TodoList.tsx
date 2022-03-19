@@ -116,11 +116,10 @@ export default function TodoList(props: any) {
             </div>
           </div>
         </form>
-        {props.dateline ? <div>{props.lists.date}</div> : null}
         {
           props.lists.map((list: any) => (
             <React.Fragment key={list.id}>
-              {props.dateline ? <div>{list.date}</div> : null}
+              {props.dateline ? <p className="todolistDate">{list.date}</p> : null}
               <form
                 className={`todolistWrap ${checkedList.includes(list) ? 'checkedbox' : ''}`}
               >
