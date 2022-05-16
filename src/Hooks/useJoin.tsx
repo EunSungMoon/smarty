@@ -31,7 +31,6 @@ export default function useJoin({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    console.log(values)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -82,9 +81,8 @@ export default function useJoin({
         window.location.replace("/");
       }
     } catch (error: any) {
-      console.log(error);
-      console.log(error.response)
-      // alert('회원가입에 실패했습니다')
+      setErrors(error)
+      alert('회원가입에 실패했습니다')
     }
   };
 
