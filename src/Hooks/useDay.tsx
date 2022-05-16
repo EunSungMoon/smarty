@@ -39,6 +39,7 @@ export default function useDay(initialDay: any) {
         }
       })
       setLists(loadData.data)
+      console.log(lists)
     } catch (error: any) {
       setError(error)
       console.log(error)

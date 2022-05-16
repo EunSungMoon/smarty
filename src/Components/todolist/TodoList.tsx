@@ -46,7 +46,7 @@ export default function TodoList(props: any) {
 
   const handleEditButton = (xId: string, button: boolean, settingButton: any) => {
     settingButton(!button);
-    setClickedId(xId)
+    setClickedId(xId);
   }
 
   const onCheckedElement = (checked: boolean, list: string, e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,52 +130,52 @@ export default function TodoList(props: any) {
                     onClick={() => handleDelete(Year, Month, Day, list.id)}
                   >
                     <label className={`importance importance-${list.importance} ${checkedList.includes(list) ? 'grayBox' : ''}`}>
-                    <input
-                      type='checkbox'
-                      name="done"
-                      className="displayNone"
-                      onChange={(e) => onCheckedElement(e.target.checked, list, e)}
-                      defaultChecked={checkedList.includes(list) ? true : false}
-                    />
-                  </label>
-                </button>
-                <p className={`margin0px title ${checkedList.includes(list) ? 'grayColor' : ''}`}>{list.title}</p>
-                <div className="buttonWrap">
-                  <button
-                    type="button"
-                    title={clickEditButton && clickedId === list.id ? '닫기' : '수정하기'}
-                    className="margin-right5px editBtn"
-                    onClick={() => handleEditButton(list.id, clickEditButton, setClickEditButton)}
-                  >
-                    {clickEditButton && clickedId === list.id ? <HiX /> : < HiOutlinePencilAlt />}
+                      <input
+                        type='checkbox'
+                        name="done"
+                        className="displayNone"
+                        onChange={(e) => onCheckedElement(e.target.checked, list, e)}
+                        defaultChecked={checkedList.includes(list) ? true : false}
+                      />
+                    </label>
                   </button>
-                  <button
-                    type="button"
-                    title='삭제하기'
-                    className="editBtn"
-                    onClick={() => handleDelete(Year, Month, Day, list.id)}
-                  >
-                    <HiOutlineTrash />
-                  </button>
+                  <p className={`margin0px title ${checkedList.includes(list) ? 'grayColor' : ''}`}>{list.title}</p>
+                  <div className="buttonWrap">
+                    <button
+                      type="button"
+                      title={clickEditButton && clickedId === list.id ? '닫기' : '수정하기'}
+                      className="margin-right5px editBtn"
+                      onClick={() => handleEditButton(list.id, clickEditButton, setClickEditButton)}
+                    >
+                      {clickEditButton && clickedId === list.id ? <HiX /> : < HiOutlinePencilAlt />}
+                    </button>
+                    <button
+                      type="button"
+                      title='삭제하기'
+                      className="editBtn"
+                      onClick={() => handleDelete(Year, Month, Day, list.id)}
+                    >
+                      <HiOutlineTrash />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </form>
-              { clickEditButton && clickedId === list.id ?
-              <EditTodolist
-                id={list.id}
-                title={list.title}
-                repeats={repeats}
-                importances={importances}
-                clickedrepeat={list.repeat}
-                clickedimportance={list.importance}
-                animation={clickEditButton}
-              />
-              : null}
+              </form>
+              {clickEditButton && clickedId === list.id ?
+                <EditTodolist
+                  id={list.id}
+                  title={list.title}
+                  repeats={repeats}
+                  importances={importances}
+                  clickedrepeat={list.repeat}
+                  clickedimportance={list.importance}
+                  animation={clickEditButton}
+                />
+                : null}
 
-      </React.Fragment>
-      ))
+            </React.Fragment>
+          ))
         }
-    </Scrollbars>
+      </Scrollbars>
     </section >
   )
 }

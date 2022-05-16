@@ -18,6 +18,14 @@
     opacity: 1;
   }
 }
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 #todolist {
   .flex-start {
@@ -32,7 +40,7 @@
       font-size: 21px;
       letter-spacing: 2px;
     }
-    .grayColor{
+    .grayColor {
       color: $gray-color;
     }
   }
@@ -139,12 +147,17 @@
     animation-name: fadeIn;
     animation-duration: 1s;
   }
+  .fadeOut {
+    position: relative;
+    animation-name: fadeOut;
+    animation-duration: 1s;
+  }
   .moveUp {
     position: relative;
     animation-name: moveUp;
     animation-duration: 1s;
   }
-  .todolistDate{
+  .todolistDate {
     font-size: 12px;
     color: $deepGray-color;
     margin-bottom: 5px;
