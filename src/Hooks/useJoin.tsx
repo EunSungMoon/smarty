@@ -29,9 +29,9 @@ export default function useJoin({
   const [loginFailMsg, setLoginFailMsg] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleUniqueCheck(e);
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
+    console.log(values)
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -50,6 +50,8 @@ export default function useJoin({
       setErrorDisappear(false);
     } else if (e.target.value === values.username) {
       setErrorDisappear(true);
+    } else if (e.target.value !== values.username) {
+      setErrorDisappear(false);
     }
   };
 
@@ -81,6 +83,7 @@ export default function useJoin({
       }
     } catch (error: any) {
       console.log(error);
+      console.log(error.response)
       // alert('회원가입에 실패했습니다')
     }
   };
@@ -157,5 +160,6 @@ export default function useJoin({
     handleSubmit,
     handleCheckID,
     changeBtnName,
+    handleUniqueCheck,
   };
 }

@@ -8,6 +8,7 @@ export default function LoginJoin() {
   const [clicked, setclicked] = useState(false);
   const [noMatchPassword, setNoMatchPassword] = useState(false);
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [disappearPwMsg, setDisappearPwMsg] = useState(false);
 
   const {
     values,
@@ -20,6 +21,7 @@ export default function LoginJoin() {
     handleChange,
     handleSubmit,
     handleCheckID,
+    handleUniqueCheck,
   } = useJoin({
     initialValues: { username: "", password: "", passwordCheck: "" },
     onSubmit: () => {},
@@ -27,8 +29,15 @@ export default function LoginJoin() {
   });
 
   const handlePasswordChk = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNoMatchPassword(e.target.value !== values.password);
-    setPasswordCheck(e.target.value);
+    if (e.target.value !== values.password) {
+      setNoMatchPassword(true);
+    } else if (e.target.value === values.password) {
+      setNoMatchPassword(false);
+    } else if (e.target.value !== values.passwordCheck) {
+      setNoMatchPassword(true);
+    } else if (e.target.value === values.passwordCheck) {
+      setNoMatchPassword(false);
+    }
   };
 
   return (
@@ -44,7 +53,10 @@ export default function LoginJoin() {
             placeholder="아이디"
             className="inputBox"
             value={values.username}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              handleUniqueCheck(e);
+            }}
           />
           {clicked ? (
             <div
@@ -69,7 +81,6 @@ export default function LoginJoin() {
               <p className="errorMsg-not">*사용할 수 없는 아이디(ID)입니다.</p>
             )
           ) : null}
-          {/* {errors.username && <p className='errorMsg-not'>{errors.username}</p>} */}
         </div>
 
         <div className="inputWrap">
@@ -78,26 +89,29 @@ export default function LoginJoin() {
             name="password"
             placeholder="비밀번호"
             className="inputBox"
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              handlePasswordChk(e);
+            }}
           />
-          {clicked && errors.password && (
+          {clicked && errors.password && !disappearPwMsg && (
             <p className="errorMsg-not">{errors.password}</p>
           )}
         </div>
 
         {clicked ? (
-          <div
-            className={`inputWrap ${clicked ? "moveDown fadeIn" : ""}`}
-            onChange={handlePasswordChk}
-          >
+          <div className={`inputWrap ${clicked ? "moveDown fadeIn" : ""}`}>
             <input
               type="password"
               name="passwordCheck"
               placeholder="비밀번호 확인"
               className="inputBox"
-              onChange={handleChange}
+              onChange={(e) => {
+                handleChange(e);
+                handlePasswordChk(e);
+              }}
             />
-            {errors.passwordCheck && (
+            {clicked && !disappearPwMsg && errors.passwordCheck && (
               <p className="errorMsg-not">{errors.passwordCheck}</p>
             )}
             {noMatchPassword && (
@@ -143,7 +157,10 @@ export default function LoginJoin() {
             className={`lightGreen-btn size-btn ${
               clicked ? "" : "margin-bottom"
             }`}
-            onClick={() => setclicked(!clicked)}
+            onClick={() => {
+              setclicked(!clicked);
+              setDisappearPwMsg(!disappearPwMsg);
+            }}
           >
             {clicked ? "로그인 화면" : "회원가입"}
           </button>
