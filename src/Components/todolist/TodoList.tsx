@@ -11,13 +11,8 @@ export default function TodoList(props: any) {
     { value: '1', text: '보통' },
     { value: '2', text: '높음' }
   ]
-  const repeats = [
-    { value: '0', text: '안함' },
-    { value: '1', text: '매주' }
-  ]
 
-  const [repeatDefault, setRepeatDefault] = useState(repeats[0].value);
-  const [importanceDefault, setImportanceDefault] = useState(repeats[0].value);
+  const [importanceDefault, setImportanceDefault] = useState(importances[0].value);
   const [clickEditButton, setClickEditButton] = useState(false);
   const [clickedId, setClickedId] = useState<string>('');
   const [checkedList, setCheckedLists] = useState<any>([]);
@@ -72,25 +67,6 @@ export default function TodoList(props: any) {
               {errors.title && <p className='errorMsg-not'>{errors.title}</p>}
 
               <div className="flex-start flex-flow">
-                <div className="flex-start repeatWrap">
-                  <p className="margin0px selectTitle box">반복</p>
-                  {repeats.map((v: any) => (
-                    <div className="radioWrap" key={v.value}>
-                      <label className={`box radio ${repeatDefault === v.value ? 'checkedRadio' : ''}`} >
-                        <input
-                          type='radio'
-                          name='repeat'
-                          value={v.value}
-                          className="displayNone"
-                          onClick={(e) => handleRadioButton(e, setRepeatDefault)}
-                          onChange={handleChange}
-                        />
-                        {v.text}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-
                 <div className="flex-start">
                   <p className="margin0px selectTitle box">중요도</p>
                   {importances.map((v: any) => (
@@ -164,7 +140,6 @@ export default function TodoList(props: any) {
                 <EditTodolist
                   id={list.id}
                   title={list.title}
-                  repeats={repeats}
                   importances={importances}
                   clickedrepeat={list.repeat}
                   clickedimportance={list.importance}
