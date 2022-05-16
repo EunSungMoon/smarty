@@ -56,7 +56,6 @@ export default function useEdit({
           title: values.title,
           importance: values.importance,
           done: values.done,
-          date: `${xYear}-${xMonth}-${xDate}`,
         },
         {
           headers: {
