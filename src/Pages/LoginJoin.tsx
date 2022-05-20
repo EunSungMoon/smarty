@@ -52,7 +52,6 @@ export default function LoginJoin() {
             name="username"
             placeholder="아이디"
             className="inputBox"
-            value={values.username}
             onChange={(e) => {
               handleChange(e);
               handleUniqueCheck(e);

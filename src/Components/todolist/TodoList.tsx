@@ -28,15 +28,8 @@ export default function TodoList(props: any) {
     error
   });
 
-  const handleRadioButton = (e: React.MouseEvent, setFirst: any) => {
-    setFirst((e.target as HTMLInputElement).value);
-
-    switch ((e.target as HTMLInputElement).name) {
-      case 'repeat':
-        return values.repeat = (e.target as HTMLInputElement).value
-      case 'importance':
-        return values.importance = (e.target as HTMLInputElement).value
-    }
+  const handleRadioButton = (e: React.MouseEvent) => {
+    setImportanceDefault((e.target as HTMLInputElement).value);
   };
 
   const handleEditButton = (xId: string, button: boolean, settingButton: any) => {
@@ -77,7 +70,7 @@ export default function TodoList(props: any) {
                           name='importance'
                           value={v.value}
                           className="displayNone"
-                          onClick={(e) => handleRadioButton(e, setImportanceDefault)}
+                          onClick={(e) => handleRadioButton(e)}
                           onChange={handleChange}
                         />
                         {v.text}
