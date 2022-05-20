@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
@@ -9,7 +10,6 @@ export default function Calendar() {
   const {
     viewDate,
     lists,
-    loading,
     error,
     loadCalendarAxios,
     setViewDate,
@@ -122,9 +122,8 @@ export default function Calendar() {
     setSelectDate(t);
   };
 
-  if (loading) return <div>로딩중...</div>;
   if (error) return <div>에러가 발생했습니다.</div>;
-  if (!lists) return <div>리스트 등록해주삼</div>;
+  if (!lists) return <div>등록된 일정이 없습니다.</div>;
 
   return (
     <>
