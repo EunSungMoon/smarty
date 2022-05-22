@@ -82,12 +82,20 @@
       border-color: $red-color;
     }
   }
-  .grayBox {
-    border-color: $gray-color;
+
+  .done {
+    &-1{
+      border-color: $gray-color;
+    }
   }
   .checkedbox {
-    background: url("../images/complete.png") no-repeat;
-    background-position-y: center;
+    &-1 {
+      background: url("../images/complete.png") no-repeat;
+      background-position-y: center;
+    }
+    &-0{
+      background: none;
+    }
   }
 
   .newTodolistWrap {

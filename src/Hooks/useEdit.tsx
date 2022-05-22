@@ -67,8 +67,6 @@ export default function useEdit({
       if (loadAxios.status === 200) {
         window.location.replace("/todolist");
       }
-
-      console.log(loadAxios);
     } catch (error) {
       console.log(error);
     }
