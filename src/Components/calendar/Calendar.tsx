@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
@@ -14,6 +14,12 @@ export default function Calendar() {
     loadCalendarAxios,
     setViewDate,
     loadDayAxios,
+    handleEdit,
+    Year,
+    Month,
+    Day,
+    handleId,
+    handleDoneValue,
   } = useDay(today);
 
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -97,12 +103,6 @@ export default function Calendar() {
     return calender;
   };
 
-  useEffect(() => {
-    setDateline(true);
-    loadCalendarAxios(currentYear, currentMonth);
-    return lists;
-  }, [viewDate]);
-
   const handleArrowBtn = (
     date: number,
     changeString: string,
@@ -121,6 +121,12 @@ export default function Calendar() {
     loadDayAxios(currentYear, currentMonth, currentDate);
     setSelectDate(t);
   };
+
+  useEffect(() => {
+    setDateline(true);
+    loadCalendarAxios(currentYear, currentMonth);
+    return lists;
+  }, [viewDate]);
 
   if (error) return <div>에러가 발생했습니다.</div>;
   if (!lists) return <div>등록된 일정이 없습니다.</div>;
@@ -193,7 +199,14 @@ export default function Calendar() {
           {createCalendar()}
         </div>
       </section>
-      <TodoList lists={lists} dateline={dateline} />
+      <TodoList
+        lists={lists}
+        dateline={dateline}
+        click={(e: React.MouseEvent<HTMLButtonElement>) => {
+          // handleDoneValue(e);
+          handleEdit(Year, Month, Day, handleId(e),e);
+        }}
+      />
     </>
   );
 }

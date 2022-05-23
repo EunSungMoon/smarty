@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -38,7 +39,6 @@ export default function useSubmit({
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
-    // console.log(values);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,50 +66,49 @@ export default function useSubmit({
     window.location.replace("/todolist");
   };
 
-  let cnt = 0;
-  const handleDone = () => {
-    if (cnt === 0) {
-      return (cnt += 1);
-    }
-    if (checked === "0" && cnt === 1) {
-      cnt = 0;
-      setChecked("1");
-      return 3;
-    } else if (checked === "1" && cnt === 1) {
-      cnt = 0;
-      setChecked("0");
-      return 3;
-    }
-  };
-  //수정하기
-  const handleEdit = async (
-    xYear: number,
-    xMonth: number,
-    xDate: number,
-    xId: string
-  ) => {
-    handleDone()
-    try {
-      const loadAxios = await axios.put(
-        `http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
-        {
-          done: checked,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
-      console.log(loadAxios.data.done);
-      // if (loadAxios.status === 200) {
-      //   window.location.replace("/todolist");
-      // }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // let cnt = 0;
+  // const handleDone = () => {
+  //   if (cnt === 0) {
+  //     return (cnt += 1);
+  //   }
+  //   if (checked === "0" && cnt === 1) {
+  //     cnt = 0;
+  //     setChecked("1");
+  //     return 3;
+  //   } else if (checked === "1" && cnt === 1) {
+  //     cnt = 0;
+  //     setChecked("0");
+  //     return 3;
+  //   }
+  // };
+
+  // //수정하기
+  // const handleEdit = async (
+  //   xYear: number,
+  //   xMonth: number,
+  //   xDate: number,
+  //   xId: string
+  // ) => {
+
+  //   try {
+  //     handleDone();
+  //     const loadAxios = await axios.put(
+  //       `http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
+  //       {
+  //         done: checked,
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           Authorization: token,
+  //         },
+  //       }        
+  //     );
+  //     console.log(loadAxios.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   //등록하기
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
@@ -160,6 +159,7 @@ export default function useSubmit({
     handleChange,
     handleSubmit,
     handleDelete,
-    handleEdit,
+    // handleEdit,
+    checked
   };
 }

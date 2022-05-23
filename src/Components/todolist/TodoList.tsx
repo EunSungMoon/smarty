@@ -4,12 +4,11 @@ import {
   HiX,
   HiOutlineTrash,
 } from "react-icons/hi";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useSubmit from "../../Hooks/useSubmit";
 import error from "../../models/error";
 import { Scrollbars } from "react-custom-scrollbars";
 import EditTodolist from "./EditTodolist";
-import axios from "axios";
 
 export default function TodoList(props: any) {
   const importances = [
@@ -34,7 +33,8 @@ export default function TodoList(props: any) {
     handleSubmit,
     handleChange,
     handleDelete,
-    handleEdit,
+    // handleEdit,
+    // checked,
   } = useSubmit({
     initialValues: {
       title: "",
@@ -45,8 +45,6 @@ export default function TodoList(props: any) {
     onSubmit: () => {},
     error,
   });
-
-  // const [checked, setChecked] = useState<string>(values.done);
 
   const handleRadioButton = (e: React.MouseEvent) => {
     setImportanceDefault((e.target as HTMLInputElement).value);
@@ -66,22 +64,6 @@ export default function TodoList(props: any) {
       ? setCheckedLists([...checkedList, list])
       : setCheckedLists(checkedList.filter((el: string) => el !== list));
   };
-
-  // let cnt = 0;
-  // const handleDone = () => {
-  //   if (cnt === 0) {
-  //     return (cnt += 1);
-  //   }
-  //   if (checked === "0" && cnt === 1) {
-  //     cnt = 0;
-  //     setChecked("1");
-  //     return 3;
-  //   } else if (checked === "1" && cnt === 1) {
-  //     cnt = 0;
-  //     setChecked("0");
-  //     return 3;
-  //   }
-  // };
 
   return (
     <section id="todolist" className="container">
@@ -149,30 +131,25 @@ export default function TodoList(props: any) {
               <div className="todolist container">
                 <button
                   type="button"
-                  className="checkboxBtn"
-                  onClick={() =>
-                    // setChecked(checked=>checked)
-                    handleEdit(Year, Month, Day, list.id)
-                  }
+                  data-done={list.done}
+                  className={`importance ${
+                    checkedList.includes(list)
+                      ? `done-1`
+                      : `importance-${list.importance} done-${list.done}`
+                  }`}
+                  value={list.id}
+                  // onClick={() => handleEdit(Year, Month, Day, list.id)}
+                  onClick={props.click}
                 >
-                  <label
-                    className={`importance ${
-                      checkedList.includes(list)
-                        ? `done-1`
-                        : `importance-${list.importance} done-${list.done}`
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      name="done"
-                      className="displayNone"
-                      onChange={(e) => {
-                        onCheckedElement(e.target.checked, list, e);
-                        handleChange(e);
-                      }}
-                      defaultChecked={checkedList.includes(list) ? true : false}
-                    />
-                  </label>
+                  <input
+                    type="checkbox"
+                    name="done"
+                    className="displayNone"
+                    onChange={(e) => {
+                      onCheckedElement(e.target.checked, list, e);
+                    }}
+                    defaultChecked={checkedList.includes(list) ? true : false}
+                  />
                 </button>
                 <p
                   className={`margin0px title ${
