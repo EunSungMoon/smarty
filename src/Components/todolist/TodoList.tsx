@@ -23,6 +23,7 @@ export default function TodoList(props: any) {
   const [clickEditButton, setClickEditButton] = useState(false);
   const [clickedId, setClickedId] = useState<string>("");
   const [checkedList, setCheckedLists] = useState<any>([]);
+  const [clickDone, setClickDone] = useState(false);
 
   const {
     Year,
@@ -33,8 +34,8 @@ export default function TodoList(props: any) {
     handleSubmit,
     handleChange,
     handleDelete,
-    // handleEdit,
-    // checked,
+    handleEdit,
+    handleId,
   } = useSubmit({
     initialValues: {
       title: "",
@@ -56,11 +57,13 @@ export default function TodoList(props: any) {
   };
 
   const onCheckedElement = (
-    checked: boolean,
     list: string,
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    checked
+    setClickDone(!clickDone);
+    console.log(clickDone);
+
+    clickDone
       ? setCheckedLists([...checkedList, list])
       : setCheckedLists(checkedList.filter((el: string) => el !== list));
   };
@@ -121,39 +124,35 @@ export default function TodoList(props: any) {
               <p className="todolistDate">{list.date}</p>
             ) : null}
             <form
-              className={`todolistWrap ${
-                checkedList.includes(list)
+              className={`todolistWrap ${list.done} ${
+                list.done===1 || checkedList.includes(list)
                   ? `checkedbox-1`
-                  : `checkedbox-${list.done}`
+                  : "checkedbox-0"
               }
               `}
+              // ${!props.loading ? `checkedbox-${list.done}` : ""}
             >
               <div className="todolist container">
                 <button
                   type="button"
                   data-done={list.done}
-                  className={`importance ${
-                    checkedList.includes(list)
+                  className={`importance importance-${list.importance}
+                  ${
+                    list.done === 1 || checkedList.includes(list)
                       ? `done-1`
-                      : `importance-${list.importance} done-${list.done}`
+                      : "done-0"
                   }`}
                   value={list.id}
-                  // onClick={() => handleEdit(Year, Month, Day, list.id)}
-                  onClick={props.click}
-                >
-                  <input
-                    type="checkbox"
-                    name="done"
-                    className="displayNone"
-                    onChange={(e) => {
-                      onCheckedElement(e.target.checked, list, e);
-                    }}
-                    defaultChecked={checkedList.includes(list) ? true : false}
-                  />
-                </button>
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    handleEdit(Year, Month, Day, handleId(e), e);
+                    onCheckedElement(list, e);
+                  }}
+                ></button>
                 <p
                   className={`margin0px title ${
-                    checkedList.includes(list) ? "grayColor" : ""
+                    list.done === 1 || checkedList.includes(list)
+                      ? "color-1"
+                      : "color-0"
                   }`}
                 >
                   {list.title}

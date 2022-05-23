@@ -11,15 +11,10 @@ export default function Calendar() {
     viewDate,
     lists,
     error,
+    loading,
     loadCalendarAxios,
     setViewDate,
     loadDayAxios,
-    handleEdit,
-    Year,
-    Month,
-    Day,
-    handleId,
-    handleDoneValue,
   } = useDay(today);
 
   const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
@@ -199,14 +194,7 @@ export default function Calendar() {
           {createCalendar()}
         </div>
       </section>
-      <TodoList
-        lists={lists}
-        dateline={dateline}
-        click={(e: React.MouseEvent<HTMLButtonElement>) => {
-          // handleDoneValue(e);
-          handleEdit(Year, Month, Day, handleId(e),e);
-        }}
-      />
+      <TodoList lists={lists} dateline={dateline} loading={loading} />
     </>
   );
 }

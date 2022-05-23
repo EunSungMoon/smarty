@@ -21,8 +21,6 @@ export default function useSubmit({
   onSubmit,
   error,
 }: initValues) {
-  // const { id } = useParams<any>()
-
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
@@ -32,7 +30,7 @@ export default function useSubmit({
   const Month = today.format("MM");
   const Day = today.format("DD");
 
-  const [checked, setChecked] = useState<string>(values.done);
+  const [checked, setChecked] = useState<any>(values.done);
 
   let token = `Token ${localStorage.getItem("token")}`;
 
@@ -66,49 +64,53 @@ export default function useSubmit({
     window.location.replace("/todolist");
   };
 
-  // let cnt = 0;
-  // const handleDone = () => {
-  //   if (cnt === 0) {
-  //     return (cnt += 1);
-  //   }
-  //   if (checked === "0" && cnt === 1) {
-  //     cnt = 0;
-  //     setChecked("1");
-  //     return 3;
-  //   } else if (checked === "1" && cnt === 1) {
-  //     cnt = 0;
-  //     setChecked("0");
-  //     return 3;
-  //   }
-  // };
+  const handleId = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    return (e.target as HTMLButtonElement).value;
+  };
 
-  // //수정하기
-  // const handleEdit = async (
-  //   xYear: number,
-  //   xMonth: number,
-  //   xDate: number,
-  //   xId: string
-  // ) => {
+  const handleDoneValue = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setChecked((e.target as HTMLButtonElement).dataset.done);
+    console.log(checked);
+  };
 
-  //   try {
-  //     handleDone();
-  //     const loadAxios = await axios.put(
-  //       `http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
-  //       {
-  //         done: checked,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //         },
-  //       }        
-  //     );
-  //     console.log(loadAxios.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleDone = () => {
+    if (checked === "0") {
+      setChecked("1");
+    } else if (checked === "1") {
+      setChecked("0");
+    }
+  };
+
+  //수정하기
+  const handleEdit = async (
+    xYear: number,
+    xMonth: number,
+    xDate: number,
+    xId: string,
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    try {
+      handleDoneValue(e);
+      handleDone();
+      const loadAxios = await axios.put(
+        `http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
+        {
+          done: checked,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      console.log(loadAxios.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //등록하기
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
@@ -159,7 +161,8 @@ export default function useSubmit({
     handleChange,
     handleSubmit,
     handleDelete,
-    // handleEdit,
-    checked
+    handleEdit,
+    handleId,
+    handleDoneValue,
   };
 }
