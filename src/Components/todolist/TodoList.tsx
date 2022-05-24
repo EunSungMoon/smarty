@@ -60,6 +60,7 @@ export default function TodoList(props: any) {
     list: string,
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
+    console.log(clickDone);
     setClickDone(!clickDone);
     console.log(clickDone);
 
@@ -124,39 +125,21 @@ export default function TodoList(props: any) {
               <p className="todolistDate">{list.date}</p>
             ) : null}
             <form
-              className={`todolistWrap ${list.done} ${
-                list.done===1 || checkedList.includes(list)
-                  ? `checkedbox-1`
-                  : "checkedbox-0"
-              }
-              `}
-              // ${!props.loading ? `checkedbox-${list.done}` : ""}
+              // checkedList.includes(list),
+              className={`todolistWrap`}
             >
               <div className="todolist container">
                 <button
                   type="button"
                   data-done={list.done}
-                  className={`importance importance-${list.importance}
-                  ${
-                    list.done === 1 || checkedList.includes(list)
-                      ? `done-1`
-                      : "done-0"
-                  }`}
+                  className={`importance importance-${list.importance}`}
                   value={list.id}
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     handleEdit(Year, Month, Day, handleId(e), e);
                     onCheckedElement(list, e);
                   }}
                 ></button>
-                <p
-                  className={`margin0px title ${
-                    list.done === 1 || checkedList.includes(list)
-                      ? "color-1"
-                      : "color-0"
-                  }`}
-                >
-                  {list.title}
-                </p>
+                <p className={`margin0px title`}>{list.title}</p>
                 <div className="buttonWrap">
                   <button
                     type="button"

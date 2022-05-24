@@ -24,6 +24,7 @@ export default function useSubmit({
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
+  const [doneData, setDoneData]=useState<string>(values.done)
   const dayjs = require("dayjs");
   const today = dayjs();
   const Year = today.format("YYYY");
@@ -107,6 +108,7 @@ export default function useSubmit({
         }
       );
       console.log(loadAxios.data);
+      setDoneData(loadAxios.data.done)
     } catch (error) {
       console.log(error);
     }
@@ -164,5 +166,7 @@ export default function useSubmit({
     handleEdit,
     handleId,
     handleDoneValue,
+    checked,
+    doneData
   };
 }
