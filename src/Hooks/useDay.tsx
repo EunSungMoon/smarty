@@ -23,7 +23,6 @@ export default function useDay(initialDay: any) {
         }
       );
       setLists(loadData.data);
-      console.log(loadData.data);
     } catch (error: any) {
       setError(error);
     }

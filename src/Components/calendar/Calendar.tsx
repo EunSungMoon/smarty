@@ -196,7 +196,7 @@ export default function Calendar() {
       <TodoList
         lists={lists}
         dateline={dateline}
-        use={() => loadCalendarAxios(currentYear, currentMonth)}
+        doneCheck={() => loadCalendarAxios(currentYear, currentMonth)}
       />
     </>
   );

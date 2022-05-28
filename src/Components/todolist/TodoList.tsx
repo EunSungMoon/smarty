@@ -118,7 +118,7 @@ export default function TodoList(props: any) {
                   value={list.id}
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                     handleEdit(Year, Month, Day, handleId(e), e);
-                    props.use();
+                    props.doneCheck();
                   }}
                 ></button>
                 <p className={`margin0px title color-${list.done}`}>

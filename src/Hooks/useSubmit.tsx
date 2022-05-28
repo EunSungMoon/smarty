@@ -94,9 +94,10 @@ export default function useSubmit({
           },
         }
       );
-    } catch (error) {}
+    } catch (error) {
+      setErrors(errors);
+    }
   };
-
 
   //등록하기
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
@@ -121,7 +122,7 @@ export default function useSubmit({
         window.location.replace("/todolist");
       }
     } catch (error) {
-      console.log(error);
+      setErrors(errors);
     }
   };
 
@@ -148,6 +149,6 @@ export default function useSubmit({
     handleSubmit,
     handleDelete,
     handleEdit,
-    handleId
+    handleId,
   };
 }
