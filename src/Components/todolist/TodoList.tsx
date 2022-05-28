@@ -58,11 +58,8 @@ export default function TodoList(props: any) {
 
   const onCheckedElement = (
     list: string,
-    e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    console.log(clickDone);
     setClickDone(!clickDone);
-    console.log(clickDone);
 
     clickDone
       ? setCheckedLists([...checkedList, list])
@@ -126,7 +123,7 @@ export default function TodoList(props: any) {
             ) : null}
             <form
               // checkedList.includes(list),
-              className={`todolistWrap`}
+              className={`todolistWrap ${list.done}`}
             >
               <div className="todolist container">
                 <button
@@ -135,8 +132,9 @@ export default function TodoList(props: any) {
                   className={`importance importance-${list.importance}`}
                   value={list.id}
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    onCheckedElement(list);
                     handleEdit(Year, Month, Day, handleId(e), e);
-                    onCheckedElement(list, e);
+                    props.use();
                   }}
                 ></button>
                 <p className={`margin0px title`}>{list.title}</p>

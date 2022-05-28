@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useDay from "../../Hooks/useDay";
 import TodoList from "../todolist/TodoList";
 import { GoTriangleLeft, GoTriangleRight } from "react-icons/go";
@@ -11,7 +11,6 @@ export default function Calendar() {
     viewDate,
     lists,
     error,
-    loading,
     loadCalendarAxios,
     setViewDate,
     loadDayAxios,
@@ -194,7 +193,11 @@ export default function Calendar() {
           {createCalendar()}
         </div>
       </section>
-      <TodoList lists={lists} dateline={dateline} loading={loading} />
+      <TodoList
+        lists={lists}
+        dateline={dateline}
+        use={() => loadCalendarAxios(currentYear, currentMonth)}
+      />
     </>
   );
 }

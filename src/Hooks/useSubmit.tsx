@@ -24,14 +24,11 @@ export default function useSubmit({
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialValues);
   const [submitting, setSubmitting] = useState(false);
-  const [doneData, setDoneData]=useState<string>(values.done)
   const dayjs = require("dayjs");
   const today = dayjs();
   const Year = today.format("YYYY");
   const Month = today.format("MM");
   const Day = today.format("DD");
-
-  const [checked, setChecked] = useState<any>(values.done);
 
   let token = `Token ${localStorage.getItem("token")}`;
 
@@ -70,20 +67,6 @@ export default function useSubmit({
     return (e.target as HTMLButtonElement).value;
   };
 
-  const handleDoneValue = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setChecked((e.target as HTMLButtonElement).dataset.done);
-    console.log(checked);
-  };
-
-  const handleDone = () => {
-    if (checked === "0") {
-      setChecked("1");
-    } else if (checked === "1") {
-      setChecked("0");
-    }
-  };
-
   //수정하기
   const handleEdit = async (
     xYear: number,
@@ -93,12 +76,16 @@ export default function useSubmit({
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
     try {
-      handleDoneValue(e);
-      handleDone();
+      let doneValue = "";
+      if ((e.target as HTMLButtonElement).dataset.done === "0") {
+        doneValue = "1";
+      } else if ((e.target as HTMLButtonElement).dataset.done === "1") {
+        doneValue = "0";
+      }
       const loadAxios = await axios.put(
         `http://15.164.62.156:8000/api/todolist/${xYear}/${xMonth}/${xDate}/${xId}/`,
         {
-          done: checked,
+          done: doneValue,
         },
         {
           headers: {
@@ -107,12 +94,9 @@ export default function useSubmit({
           },
         }
       );
-      console.log(loadAxios.data);
-      setDoneData(loadAxios.data.done)
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
+
 
   //등록하기
   const handleAxios = async (xYear: number, xMonth: number, xDate: number) => {
@@ -164,9 +148,6 @@ export default function useSubmit({
     handleSubmit,
     handleDelete,
     handleEdit,
-    handleId,
-    handleDoneValue,
-    checked,
-    doneData
+    handleId
   };
 }

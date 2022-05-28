@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function useDay(initialDay: any) {
   const [lists, setLists] = useState([] as any);
