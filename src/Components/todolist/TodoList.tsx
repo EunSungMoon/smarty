@@ -22,8 +22,6 @@ export default function TodoList(props: any) {
   );
   const [clickEditButton, setClickEditButton] = useState(false);
   const [clickedId, setClickedId] = useState<string>("");
-  const [checkedList, setCheckedLists] = useState<any>([]);
-  const [clickDone, setClickDone] = useState(false);
 
   const {
     Year,
@@ -54,16 +52,6 @@ export default function TodoList(props: any) {
   const handleEditButton = (xId: string) => {
     setClickEditButton(!clickEditButton);
     setClickedId(xId);
-  };
-
-  const onCheckedElement = (
-    list: string,
-  ) => {
-    setClickDone(!clickDone);
-
-    clickDone
-      ? setCheckedLists([...checkedList, list])
-      : setCheckedLists(checkedList.filter((el: string) => el !== list));
   };
 
   return (
@@ -121,23 +109,21 @@ export default function TodoList(props: any) {
             {props.dateline ? (
               <p className="todolistDate">{list.date}</p>
             ) : null}
-            <form
-              // checkedList.includes(list),
-              className={`todolistWrap ${list.done}`}
-            >
+            <form className={`todolistWrap checkedbox-${list.done}`}>
               <div className="todolist container">
                 <button
                   type="button"
                   data-done={list.done}
-                  className={`importance importance-${list.importance}`}
+                  className={`importance importance-${list.importance} done-${list.done}`}
                   value={list.id}
                   onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                    onCheckedElement(list);
                     handleEdit(Year, Month, Day, handleId(e), e);
                     props.use();
                   }}
                 ></button>
-                <p className={`margin0px title`}>{list.title}</p>
+                <p className={`margin0px title color-${list.done}`}>
+                  {list.title}
+                </p>
                 <div className="buttonWrap">
                   <button
                     type="button"
